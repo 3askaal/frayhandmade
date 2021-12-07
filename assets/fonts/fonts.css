@@ -1,0 +1,44 @@
+@font-face {
+  font-family: 'Futura';
+  font-weight: normal;
+  src: url('~assets/fonts/Futura-Normal.eot'); /* IE9 Compat Mode */
+  src: url('~assets/fonts/Futura-Normal.woff') format('woff'),
+       url('~assets/fonts/Futura-Normal.otf') format('otf'),
+       url('~assets/fonts/Futura-Normal.eot') format('eot');
+}
+
+@font-face {
+  font-family: 'Futura-Bold';
+  font-weight: normal;
+  src: url('~assets/fonts/Futura-Bold.eot'); /* IE9 Compat Mode */
+  src: url('~assets/fonts/Futura-Bold.woff') format('woff'),
+       url('~assets/fonts/Futura-Bold.otf') format('otf'),
+       url('~assets/fonts/Futura-Bold.eot') format('eot');
+}
+
+@font-face {
+  font-family: 'FuturaStd-Book';
+  font-weight: normal;
+  src: url('~assets/fonts/FuturaStd-Book.eot'); /* IE9 Compat Mode */
+  src: url('~assets/fonts/FuturaStd-Book.woff') format('woff'),
+       url('~assets/fonts/FuturaStd-Book.otf') format('otf'),
+       url('~assets/fonts/FuturaStd-Book.eot') format('eot');
+}
+
+@font-face {
+  font-family: 'FuturaStd-CondensedOblique';
+  font-weight: normal;
+  src: url('~assets/fonts/FuturaStd-CondensedOblique.eot'); /* IE9 Compat Mode */
+  src: url('~assets/fonts/FuturaStd-CondensedOblique.woff') format('woff'),
+       url('~assets/fonts/FuturaStd-CondensedOblique.otf') format('otf'),
+       url('~assets/fonts/FuturaStd-CondensedOblique.eot') format('eot');
+}
+
+@font-face {
+  font-family: 'FuturaStd-Medium';
+  font-weight: normal;
+  src: url('~assets/fonts/FuturaStd-Medium.eot'); /* IE9 Compat Mode */
+  src: url('~assets/fonts/FuturaStd-Medium.woff') format('woff'),
+       url('~assets/fonts/FuturaStd-Medium.otf') format('otf'),
+       url('~assets/fonts/FuturaStd-Medium.eot') format('eot');
+}
