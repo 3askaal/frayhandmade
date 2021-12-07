@@ -1,6 +1,6 @@
 {
-  "name": "hugojonker",
-  "version": "1.0.0",
+  "name": "frayhandmade",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "nuxt",
