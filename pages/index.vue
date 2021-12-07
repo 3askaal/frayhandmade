@@ -1,8 +1,5 @@
 <template>
-  <div>
-    <Header />
-    <Footer />
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -15,7 +12,6 @@ export default {
         return {
           title: 'Lorem ipsum',
           content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda ipsa quidem voluptas optio accusamus voluptate facilis hic a sapiente excepturi iure, explicabo architecto nostrum magnam velit neque deleniti inventore magni.',
-          image: this.getPlaceholderImageUrl()
         }
       })
     }

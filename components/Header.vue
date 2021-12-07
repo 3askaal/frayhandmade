@@ -35,7 +35,7 @@ export default {
 }
 
 .header__logo {
-  font-family: $font-logo;
+  // font-family: $font-logo;
   font-size: 3rem;
   // margin-bottom: 2rem;
 }
