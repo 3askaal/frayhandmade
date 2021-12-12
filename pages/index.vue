@@ -1,5 +1,8 @@
 <template>
-  <div></div>
+  <Section>
+    <h3>Lorem ipsum</h3>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio magnam, quod illo repellat debitis optio similique corrupti dolore nemo, minus a fuga veritatis iste porro quaerat voluptates, inventore aut ipsum.</p>
+  </Section>
 </template>
 
 <script>

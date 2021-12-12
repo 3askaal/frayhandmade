@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <Header />
+    <Hero />
     <div class="container">
       <Nuxt />
     </div>
@@ -28,14 +29,8 @@ body {
   color: $white;
 }
 
-.app {
-  // border: 1px solid $red;
-  // display: flex;
-  // flex-direction: column;
-}
-
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   padding: 0 2rem;
   display: block;
   // display: flex;
