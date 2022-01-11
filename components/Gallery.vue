@@ -1,5 +1,5 @@
 <template>
-  <div class="gallery"></div>
+  <div class="gallery" />
 </template>
 
 <script>
@@ -10,11 +10,20 @@ export default {
       default: []
     }
   },
-  data() {
-    return {}
+  mounted() {
+    this.getImages()
+    console.log('1')
   },
-  mounted() {},
-  methods: {}
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+    async getImages() {
+      await this.$axios.$get(`https://3as.me/wp-json/wp/v2/media`)
+    }
+  }
 }
 </script>
 

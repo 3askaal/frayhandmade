@@ -7,22 +7,21 @@
 <script>
 
 export default {
-  props: {
-    items: {
-      type: Array,
-      default: []
-    }
-  },
   mounted() {
     this.playVideo()
   },
   data() {
     return {
-      videoId: 'CrrApVUfVxk'
+      videoId: 'CrrApVUfVxk',
+      playerVars: {
+        autoplay: 1,
+
+      },
     }
   },
   methods: {
     playVideo() {
+      this.player.mute()
       this.player.playVideo()
     },
     playing() {

@@ -1,16 +1,28 @@
 <template>
-  <Section>
-    <h3>Lorem ipsum</h3>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio magnam, quod illo repellat debitis optio similique corrupti dolore nemo, minus a fuga veritatis iste porro quaerat voluptates, inventore aut ipsum.</p>
-  </Section>
+  <div>
+    <Section v-if="content">
+      <div v-html="content.content.rendered" />
+    </Section>
+    <Section>
+      <Gallery :items="[]" />
+    </Section>
+  </div>
 </template>
 
 <script>
 import { times } from 'lodash'
 
 export default {
+  async mounted() {
+    const pages = await this.$axios.$get(`https://3as.me/wp-json/wp/v2/posts`)
+
+    this.content = pages.find((page) => page.slug === 'hello-world')
+
+    console.log(this.content)
+  },
   data() {
     return {
+      content: null,
       items: times(40, () => {
         return {
           title: 'Lorem ipsum',
