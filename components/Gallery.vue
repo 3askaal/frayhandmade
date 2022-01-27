@@ -12,7 +12,6 @@ export default {
   },
   mounted() {
     this.getImages()
-    console.log('1')
   },
   data() {
     return {
@@ -21,7 +20,7 @@ export default {
   },
   methods: {
     async getImages() {
-      await this.$axios.$get(`https://3as.me/wp-json/wp/v2/media`)
+      await this.$axios.$get(`https://3as.me/frayhandmade/wp-json/wp/v2/media`)
     }
   }
 }

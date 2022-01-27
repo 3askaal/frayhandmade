@@ -14,7 +14,7 @@ import { times } from 'lodash'
 
 export default {
   async mounted() {
-    const pages = await this.$axios.$get(`https://3as.me/wp-json/wp/v2/posts`)
+    const pages = await this.$axios.$get(`https://3as.me/frayhandmade/wp-json/wp/v2/posts`)
 
     this.content = pages.find((page) => page.slug === 'hello-world')
 
