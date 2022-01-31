@@ -15,7 +15,6 @@ export default {
       videoId: 'CrrApVUfVxk',
       playerVars: {
         autoplay: 1,
-
       },
     }
   },
