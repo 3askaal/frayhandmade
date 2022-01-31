@@ -53,5 +53,13 @@ export default {
       '~/style/variables.scss',
       'bootstrap/scss/bootstrap-reboot.scss',
     ]
+  },
+
+  env: {
+    baseUrl: process.env.BASE_URL,
+    woocommerce: {
+      key: process.env.WOOCOMMERCE_KEY,
+      secret: process.env.WOOCOMMERCE_SECRET,
+    }
   }
 }

@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     async getImages() {
-      const media = await this.$axios.$get(`https://3as.me/frayhandmade/wp-json/wp/v2/media`)
+      const media = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/media`)
 
       this.images = media.map((image) => ({
         id: image.id,
