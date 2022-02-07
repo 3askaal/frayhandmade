@@ -1,11 +1,11 @@
 <template>
   <div>
     <Section v-if="content">
-      <div v-html="content.content.rendered" />
+      <div class="body" v-html="content.content.rendered" />
     </Section>
-    <Section>
+    <!-- <Section>
       <Gallery :items="[]" />
-    </Section>
+    </Section> -->
   </div>
 </template>
 
@@ -15,9 +15,9 @@ import { times } from 'lodash'
 export default {
   layout: 'home',
   async mounted() {
-    const pages = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts`)
-
-    this.content = pages.find((page) => page.slug === 'hello-world')
+    const pages = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/pages`)
+    console.log(pages)
+    this.content = pages.find((page) => page.slug === 'home')
 
     console.log(this.content)
   },
@@ -35,3 +35,22 @@ export default {
   methods: {}
 }
 </script>
+
+<style lang="scss">
+.gallery--home {
+  .wp-block-gallery {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .wp-block-image {
+    flex-basis: 25%;
+    /* min-width: 25%; */
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>

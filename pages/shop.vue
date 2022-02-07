@@ -1,7 +1,7 @@
 <template>
   <div class="products">
     <div class="products__item" v-for="product in products" :key="product.id">
-      <div class="products__item__image">
+      <div class="products__item__image" v-if="product.images[0] && product.images[0].src">
         <img :src="product.images[0].src" alt="">
       </div>
       <div class="products__item__content">
@@ -14,24 +14,13 @@
 </template>
 
 <script>
-import { times } from 'lodash'
-import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
-import axios from "axios";
+import { WooCommerceApi } from '../api'
 import to from 'await-to-js'
 
 
 export default {
   async mounted() {
-
-    const api = new WooCommerceRestApi({
-      url: process.env.baseUrl,
-      consumerKey: process.env.woocommerce.key,
-      consumerSecret: process.env.woocommerce.secret,
-      version: "wc/v3",
-      queryStringAuth: true
-    });
-
-    const [getProductsErr, getProductsSuccess] = await to(api.get("products", { per_page: 20 }))
+    const [getProductsErr, getProductsSuccess] = await to(WooCommerceApi.get("products", { per_page: 20 }))
 
     if (getProductsErr) {
       throw getProductsErr
