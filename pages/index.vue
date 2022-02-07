@@ -13,6 +13,7 @@
 import { times } from 'lodash'
 
 export default {
+  layout: 'home',
   async mounted() {
     const pages = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/posts`)
 
