@@ -17,7 +17,6 @@
 import { WooCommerceApi } from '../api'
 import to from 'await-to-js'
 
-
 export default {
   async mounted() {
     const [getProductsErr, getProductsSuccess] = await to(WooCommerceApi.get("products", { per_page: 20 }))
@@ -27,8 +26,6 @@ export default {
     }
 
     this.products = getProductsSuccess.data
-
-    console.log(this.products)
   },
   data() {
     return {
