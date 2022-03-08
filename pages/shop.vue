@@ -1,15 +1,17 @@
 <template>
   <div class="products">
-    <div class="products__item" v-for="product in products" :key="product.id">
-      <div class="products__item__image" v-if="product.images[0] && product.images[0].src">
-        <img :src="product.images[0].src" alt="">
-      </div>
-      <div class="products__item__content">
-        <p v-html="product.name"></p>
-        <p v-html="product.description"></p>
-        <p v-html="product.price"></p>
-      </div>
-    </div>
+    <b-row>
+      <b-col cols="4" class="products__item" v-for="product in products" :key="product.id">
+        <div class="products__item__image" v-if="product.images[0] && product.images[0].src">
+          <img :src="product.images[0].src" alt="">
+        </div>
+        <div class="products__item__content">
+          <p v-html="product.name"></p>
+          <p v-html="product.description"></p>
+          <p v-html="product.price"></p>
+        </div>
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -42,9 +44,6 @@ export default {
 }
 
 .products__item {
-  flex-basis: 50%;
-  border: 1px solid black;
-  border-radius: 2px;
 }
 
 .products__item__image {
