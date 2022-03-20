@@ -8,7 +8,7 @@
         <div class="products__item__content">
           <p v-html="product.name"></p>
           <p v-html="product.description"></p>
-          <p v-html="product.price"></p>
+          <p v-html="product.price">€{{ product.price }}}</p>
         </div>
       </b-col>
     </b-row>
@@ -16,18 +16,17 @@
 </template>
 
 <script>
-import { WooCommerceApi } from '../api'
 import to from 'await-to-js'
 
 export default {
   async mounted() {
-    const [getProductsErr, getProductsSuccess] = await to(WooCommerceApi.get("products", { per_page: 20 }))
+    const [getProductsErr, getProductsSuccess] = await to(this.$axios.$get(`${process.env.baseUrl}/wp-json/wc/v3/products`));
 
     if (getProductsErr) {
       throw getProductsErr
     }
 
-    this.products = getProductsSuccess.data
+    this.products = getProductsSuccess
   },
   data() {
     return {
@@ -44,6 +43,7 @@ export default {
 }
 
 .products__item {
+  margin-bottom: 2rem;
 }
 
 .products__item__image {
@@ -56,6 +56,9 @@ export default {
 }
 
 .products__item__content {
-  padding: 1rem;
+  display: flex;
+  padding: 1rem .5rem;
+  width: 100%;
+  justify-content: space-between;
 }
 </style>
