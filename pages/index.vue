@@ -3,9 +3,6 @@
     <Section v-if="content">
       <div class="body" v-html="content.content.rendered" />
     </Section>
-    <!-- <Section>
-      <Gallery :items="[]" />
-    </Section> -->
   </div>
 </template>
 

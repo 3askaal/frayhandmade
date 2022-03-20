@@ -2,14 +2,16 @@
   <div class="products">
     <b-row>
       <b-col cols="4" class="products__item" v-for="product in products" :key="product.id">
-        <div class="products__item__image" v-if="product.images[0] && product.images[0].src">
-          <img :src="product.images[0].src" alt="">
-        </div>
-        <div class="products__item__content">
-          <p v-html="product.name"></p>
-          <p v-html="product.description"></p>
-          <p v-html="product.price">€{{ product.price }}}</p>
-        </div>
+        <router-link :to="`/product/${product.id}`">
+          <div class="products__item__image" v-if="product.images[0] && product.images[0].src">
+            <img :src="product.images[0].src" alt="">
+          </div>
+          <div class="products__item__content">
+            <p v-html="product.name"></p>
+            <p v-html="product.description"></p>
+            <p v-html="product.price">€{{ product.price }}}</p>
+          </div>
+        </router-link>
       </b-col>
     </b-row>
   </div>
@@ -43,7 +45,19 @@ export default {
 }
 
 .products__item {
-  margin-bottom: 2rem;
+  padding: 2rem;
+
+  a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: unset;
+    }
+  }
+
+  &:hover {
+    border: 1px solid $black;
+  }
 }
 
 .products__item__image {
@@ -57,7 +71,7 @@ export default {
 
 .products__item__content {
   display: flex;
-  padding: 1rem .5rem;
+  margin-top: 1rem;
   width: 100%;
   justify-content: space-between;
 }
