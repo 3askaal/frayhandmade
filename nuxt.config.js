@@ -61,6 +61,7 @@ export default {
     woocommerce: {
       key: process.env.WOOCOMMERCE_KEY,
       secret: process.env.WOOCOMMERCE_SECRET,
-    }
+    },
+    stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY
   }
 }

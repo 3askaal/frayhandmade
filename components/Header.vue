@@ -1,12 +1,15 @@
 <template>
   <div class="header">
-    <!-- <div class="header__logo">Fray Handmade</div> -->
+    <div class="header__logox">Fray</div>
     <div class="header__nav">
-      <div class="header__nav__links">
-        <a href="/" class="header__nav__item">Home</a>
-        <a href="/shop" class="header__nav__item">Shop</a>
-        <a href="/contact" class="header__nav__item">Contact</a>
-      </div>
+        <router-link to="/" class="header__nav__item">Home</router-link>
+        <router-link to="/shop" class="header__nav__item">Shop</router-link>
+        <router-link to="/contact" class="header__nav__item">Contact</router-link>
+    </div>
+    <div class="header__extra">
+      <router-link to="/checkout" class="header__nav__item">
+        <b-icon-cart />
+      </router-link>
     </div>
   </div>
 </template>
@@ -28,8 +31,7 @@ export default {
   left: 0;
   right: 0;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: $spacer * 4;
   z-index: 100;

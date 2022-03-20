@@ -7,13 +7,18 @@
     </div>
     <div class="product__details">
       <h1 class="product__title">{{ product.name }}</h1>
-      <p class="product__desc">{{ product.description || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa unde quod facere natus quo incidunt nesciunt porro, sed, est deleniti culpa eligendi ducimus rerum distinctio officia, error magni officiis harum?' }}</p>
+      <p class="product__description">{{ product.description || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa unde quod facere natus quo incidunt nesciunt porro, sed, est deleniti culpa eligendi ducimus rerum distinctio officia, error magni officiis harum?' }}</p>
+      <b-button @click="() => add(product)">
+        Add to cart
+        <b-icon-plus />
+      </b-button>
     </div>
   </div>
 </template>
 
 <script>
 import to from 'await-to-js'
+import { mapMutations } from 'vuex'
 
 export default {
   async mounted() {
@@ -33,7 +38,11 @@ export default {
       product: null
     }
   },
-  methods: {}
+  methods: {
+    ...mapMutations({
+      add: 'checkout/add'
+    })
+  }
 }
 </script>
 
@@ -50,7 +59,11 @@ export default {
   margin-bottom: 2rem;
 }
 
-.product__details {
+.product__title {
+  margin-bottom: 1rem;
+}
 
+.product__description {
+  margin-bottom: 2rem;
 }
 </style>

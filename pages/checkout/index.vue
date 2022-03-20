@@ -1,17 +1,22 @@
 <template>
   <div class="checkout mt-5">
     <div class="checkout__products">
-      <b-row class="checkout__products__product" v-for="product in products" :key="product.title">
+      <b-row class="checkout__products__product" v-for="product in products" :key="product.product.title">
         <b-col cols="3">
-          <img :src="product.image" alt="" class="checkout__products__product__image" />
+          <img :src="product.product.images[0].src" alt="" class="checkout__products__product__image" />
         </b-col>
         <b-col cols="7">
-          <div class="checkout__products__product__title">{{ product.title }}</div>
-          <small class="checkout__products__product__desc">{{ product.desc.slice(0, 100) }}</small>
+          <div class="checkout__products__product__title">{{ product.product.title }}</div>
+          <small class="checkout__products__product__desc">{{ product.product.description || 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate vitae eum quibusdam in voluptatem? Expedita blanditiis culpa sunt at, labore tempora placeat. Quos, libero nulla quae reiciendis tempora velit earum.' }}</small>
         </b-col>
         <b-col cols="2" class="d-flex align-items-center">
           <b-form-input size="sm" type="number" v-model="product.amount" class="checkout__products__product__amount" />
-          <b-button size="sm" class="checkout__products__product__remove" variant="outline-danger">
+          <b-button
+            size="sm"
+            class="checkout__products__product__remove"
+            variant="outline-danger"
+            @click="() => remove(product.product.id)"
+          >
             <b-icon-x />
           </b-button>
         </b-col>
@@ -36,29 +41,16 @@
 
 <script>
 import { StripeCheckout } from '@vue-stripe/vue-stripe';
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
     StripeCheckout
   },
   data() {
-    this.publishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
+    this.publishableKey = process.env.stripePublishableKey;
 
     return {
-      products: [
-        {
-          image: 'https://picsum.photos/600/900',
-          title: 'Product 1',
-          desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet fuga tempore omnis? Voluptas corrupti sapiente ipsam unde libero, dolorem itaque rerum quis consequatur at exercitationem ea perferendis. Assumenda, soluta nulla.',
-          amount: 1
-        },
-        {
-          image: 'https://picsum.photos/600/900',
-          title: 'Product 1',
-          desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet fuga tempore omnis? Voluptas corrupti sapiente ipsam unde libero, dolorem itaque rerum quis consequatur at exercitationem ea perferendis. Assumenda, soluta nulla.',
-          amount: 2
-        },
-      ],
       loading: false,
       successURL: window.location.href + '/status?status=success',
       cancelURL: window.location.href + '/status?status=error',
@@ -68,11 +60,17 @@ export default {
     submit () {
       this.$refs.checkoutRef.redirectToCheckout();
     },
+    ...mapMutations({
+      remove: 'checkout/remove'
+    })
   },
   computed: {
+    products () {
+      return this.$store.state.checkout.products
+    },
     checkoutProducts () {
       return this.products.map(
-        ({ stripePriceId, amount }) => ({ price: stripePriceId, quantity: amount })
+        ({ stripePriceId, amount }) => ({ price: stripePriceId || 'asdasdasd', quantity: amount })
       )
     }
   }
