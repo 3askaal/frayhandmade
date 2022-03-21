@@ -34,7 +34,7 @@ body {
   max-width: 1000px;
   padding: 0 2rem;
   display: block;
-  padding-top: 150px;
+  padding-top: 200px;
   height: 100%;
 }
 </style>

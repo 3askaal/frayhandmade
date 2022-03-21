@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <div class="header__logox">Fray</div>
+    <div class="header__logo">
+      <img src="~/assets/logo.svg" alt="" />
+    </div>
     <div class="header__nav">
         <router-link to="/" class="header__nav__item">Home</router-link>
         <router-link to="/shop" class="header__nav__item">Shop</router-link>
@@ -42,6 +44,13 @@ export default {
 
 .header__logo {
   font-size: 3rem;
+  width: 100px;
+
+  &:hover {
+    svg {
+      fill: $primary;
+    }
+  }
 }
 
 .header__nav {

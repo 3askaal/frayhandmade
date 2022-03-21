@@ -22,7 +22,8 @@ export default {
   css: [
     '~/style/global.scss',
     'normalize.css/normalize.css',
-    'reset-css/reset.css',
+    // 'reset-css/reset.css',
+    '~/assets/fonts/onyx/stylesheet.css',
     // '~/assets/fonts/fonts.css',
   ],
 

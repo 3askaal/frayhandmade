@@ -56,7 +56,21 @@ export default {
   }
 
   &:hover {
-    border: 1px solid $black;
+    /* box-shadow: 0 0 0 1px $black; */
+
+    .products__item__content {
+      justify-content: space-between;
+
+      :first-child {
+        left: 0;
+        transform: none;
+      }
+
+      :last-child {
+        display: block;
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -77,6 +91,23 @@ export default {
   display: flex;
   margin-top: 1rem;
   width: 100%;
-  justify-content: space-between;
+  position: relative;
+
+  > * {
+    transition: all .4s ease;
+  }
+
+  :first-child {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  :last-child {
+    display: none;
+    right: 0;
+    opacity: 0;
+  }
 }
 </style>
