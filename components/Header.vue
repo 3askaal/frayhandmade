@@ -49,7 +49,7 @@ export default {
 
   &:hover {
     svg path {
-      fill: $primary-dark;
+      fill: $primary;
     }
   }
 }
