@@ -9,6 +9,9 @@
     <div class="header__extra">
       <router-link to="/checkout" class="header__nav__item">
         <b-icon-cart />
+        <span class="header__nav__item__indicator" v-if="this.$store.state.checkout.products.length">
+          {{ this.$store.state.checkout.products.length }}
+        </span>
       </router-link>
     </div>
   </div>
@@ -38,9 +41,7 @@ export default {
 }
 
 .header__logo {
-  // font-family: $font-logo;
   font-size: 3rem;
-  // margin-bottom: 2rem;
 }
 
 .header__nav {
@@ -48,6 +49,7 @@ export default {
 }
 
 .header__nav__item {
+  position: relative;
   color: $black;
   letter-spacing: .125rem;
 
@@ -60,5 +62,20 @@ export default {
   +.header__nav__item {
     margin-left: 4rem;
   }
+}
+
+.header__nav__item__indicator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary;
+  width: 28px;
+  height: 28px;
+  top: calc(100% + .5rem);
+  left: calc(100% + .5rem);
+  border-radius: 100%;
+  font-size: .75rem;
+  color: $white;
 }
 </style>

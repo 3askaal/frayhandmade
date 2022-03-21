@@ -61,6 +61,10 @@ export default {
 }
 
 .products__item__image {
+  display: flex;
+  min-height: 320px;
+  align-items: center;
+
   img {
     display: block;
     width: 100%;

@@ -31,7 +31,7 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   padding: 0 2rem;
   display: block;
   padding-top: 150px;
