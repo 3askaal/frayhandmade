@@ -16,8 +16,10 @@ export default {
     this.content = pages.find((page) => page.slug === 'home')?.content?.rendered
 
     this.$nextTick(() => {
-      let canvasWidth = 800
-      let canvasHeight = 800
+      const galleryEl = this.$refs.body.querySelector('wp-block-gallery');
+
+      let canvasWidth = this.$refs.body.getBoundingClientRect().width
+      let canvasHeight = 1000
 
       const images = Array.prototype.slice.call(this.$refs.body.querySelectorAll('.wp-block-image img'))
       const placedImages = []
@@ -34,27 +36,28 @@ export default {
       const calcRandomImagePositions = (imageWidth, imageHeight) => {
         let randomX = random(0, (canvasWidth - imageWidth))
         let randomY = random(0, (canvasHeight - imageHeight))
+        let randomRotate = random(-30, 30)
 
         return {
           x: randomX,
           y: randomY,
           width: imageWidth,
-          height: imageHeight
+          height: imageHeight,
+          rotate: randomRotate
         }
       }
 
       const imageDoesntFit = (image) => {
         const imageCorners = getCorners(image)
+
         return placedImages.some((placedImage) => {
           const placedImageCorners = getCorners(placedImage)
-          console.log(placedImageCorners)
 
           return Object.values(imageCorners).some((corner) => {
-            return true &&
-              corner.x < placedImageCorners.topLeft.x &&
-              corner.y < placedImageCorners.topLeft.y &&
-              corner.y > placedImageCorners.bottomRight.y &&
-              corner.x > placedImageCorners.bottomRight.x;
+            return corner.x > placedImageCorners.topLeft.x &&
+              corner.y > placedImageCorners.topLeft.y &&
+              corner.y < placedImageCorners.bottomRight.y &&
+              corner.x < placedImageCorners.bottomRight.x;
           })
         })
       }
@@ -64,14 +67,15 @@ export default {
         let imageHeight = image.getAttribute('height')
 
         // imageWidth = imageWidth < 500 ? imageWidth : 500
-        imageWidth = 200
         // imageHeight = imageHeight < 500 ? imageHeight : 500
+        imageWidth = 200
         imageHeight = 200
 
         let randomPositionedImage = calcRandomImagePositions(imageWidth, imageHeight)
 
+        console.log(imageDoesntFit(randomPositionedImage))
         while (imageDoesntFit(randomPositionedImage)) {
-          console.log('test 2')
+          console.log('imageDoesntFit')
           randomPositionedImage = calcRandomImagePositions(imageWidth, imageHeight)
         }
 
@@ -80,13 +84,12 @@ export default {
         image.style.maxHeight = imageHeight + 'px';
         image.style.left = randomPositionedImage.x + 'px';
         image.style.top = randomPositionedImage.y + 'px';
-        console.log(image)
+        image.style.transform = `rotate(${randomPositionedImage.rotate}deg)`;
+
         this.$refs.body.appendChild(image)
 
         placedImages.push(randomPositionedImage)
       })
-
-
     })
   },
   data() {
@@ -103,6 +106,10 @@ export default {
 .body {
   position: relative;
   border: 1px solid red;
+}
+
+.wp-block-gallery {
+  position: relative;
 }
 
 .wp-block-image {

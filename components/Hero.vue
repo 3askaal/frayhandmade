@@ -8,7 +8,7 @@
 
 export default {
   mounted() {
-    this.playVideo()
+    // this.playVideo()
   },
   data() {
     return {
