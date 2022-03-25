@@ -16,7 +16,7 @@ export default {
     this.content = pages.find((page) => page.slug === 'home')?.content?.rendered
 
     this.$nextTick(() => {
-      const galleryEl = this.$refs.body.querySelector('wp-block-gallery');
+      const galleryEl = this.$refs.body.querySelector('.gallery--home');
 
       let canvasWidth = this.$refs.body.getBoundingClientRect().width
       let canvasHeight = 1000
@@ -86,7 +86,7 @@ export default {
         image.style.top = randomPositionedImage.y + 'px';
         image.style.transform = `rotate(${randomPositionedImage.rotate}deg)`;
 
-        this.$refs.body.appendChild(image)
+        galleryEl.appendChild(image)
 
         placedImages.push(randomPositionedImage)
       })
@@ -104,12 +104,8 @@ export default {
 <style lang="scss">
 
 .body {
-  position: relative;
-  border: 1px solid red;
-}
+  /* position: relative; */
 
-.wp-block-gallery {
-  position: relative;
 }
 
 .wp-block-image {
@@ -117,6 +113,11 @@ export default {
 }
 
 .gallery--home {
+  position: relative;
+  width: 100%;
+  min-height: 800px;
+  border: 1px solid red;
+
   .wp-block-gallery {
     display: flex;
     flex-wrap: wrap;
