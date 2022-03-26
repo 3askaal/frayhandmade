@@ -20,6 +20,7 @@
     "nuxt": "^2.14.12",
     "random-hex-color": "^1.0.1",
     "reset-css": "^5.0.1",
+    "video.js": "^7.18.1",
     "vue-masonry": "^0.12.0",
     "vue-videojs7": "^1.0.2",
     "vue-youtube": "^1.4.0"

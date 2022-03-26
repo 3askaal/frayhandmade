@@ -1,36 +1,25 @@
 <template>
   <div class="hero">
-    <youtube :video-id="videoId" ref="youtube" @playing="playing"></youtube>
+    <video id="video" autoplay loop muted data-setup="{}">
+      <!-- <source src="~/assets/videos/.webm" type="video/webm"> -->
+      <source src="~/assets/media/video1.mp4" type="video/mp4" />
+      <!-- <source src="~/assets/media/video2.mp4" type="video/mp4" /> -->
+    </video>
   </div>
 </template>
 
 <script>
+import videojs from 'video.js'
 
 export default {
   mounted() {
-    // this.playVideo()
-  },
-  data() {
-    return {
-      videoId: 'CrrApVUfVxk',
-      playerVars: {
-        autoplay: 1,
-      },
-    }
-  },
-  methods: {
-    playVideo() {
-      this.player.mute()
-      this.player.playVideo()
-    },
-    playing() {
-      console.log('\o/ we are watching!!!')
-    }
-  },
-  computed: {
-    player() {
-      return this.$refs.youtube.player
-    }
+    this.$nextTick(() => {
+      videojs('video', {}, function onPlayerReady() {
+        this.play();
+
+        // this.on('ended', function() {});
+      });
+    })
   }
 }
 </script>
@@ -46,23 +35,14 @@ export default {
   filter: grayscale(1);
 }
 
-iframe {
+video {
   display: block;
   position: absolute;
-  width: 180%;
-  height: 180%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  @media only screen and (min-width: 768px) {
-    min-height: 250%;
-    min-width: 250%;
-  }
-
-  @media only screen and (min-width: 960px) {
-    min-height: 180%;
-    min-width: 160%;
-  }
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 </style>
