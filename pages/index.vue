@@ -90,10 +90,12 @@ export default {
           .map(([srcUrl]) => srcUrl)
       }
 
-
       forEach(images, (image) => {
         let imageWidth = image.getAttribute('width')
         let imageHeight = image.getAttribute('height')
+        // console.log(image.srcset)
+        const randomSizedImageUrl = sample(formatSrcSet(image.srcset, 500))
+        console.log(randomSizedImageUrl)
 
         const randomSizedImageUrl = sample(formatSrcSet(image.srcset, 350))
         const dimensions = randomSizedImageUrl.match(/(\d)+(x)(\d)+/g)[0].split('x')
