@@ -1,9 +1,11 @@
 <template>
   <div>
     <Hero v-if="videos.length" :videos="videos" />
-    <div class="container">
-      <Section>
-        <div ref="body" class="body" v-html="content" />
+    <div ref="body">
+      <Section v-for="(block, index) in blocks" :key="index">
+        <div v-if="block.includes('gallery--home')" ref="gallery" class="body" v-html="block" />
+        <div v-else-if="block.includes('wp-block-video')" ref="gallery" class="body" v-html="block" />
+        <div v-else v-html="block" class="container"></div>
       </Section>
     </div>
   </div>
@@ -18,6 +20,10 @@ export default {
     const pages = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/pages`)
     this.content = pages.find((page) => page.slug === 'home')?.content?.rendered
 
+    const renderedString = pages.find((page) => page.slug === 'home')?.content?.rendered
+    const doc = new DOMParser().parseFromString(renderedString, 'text/html');
+    this.blocks = [...doc.body.childNodes].map((node) => node.outerHTML).filter((html) => html !== undefined)
+
     this.$nextTick(() => {
       this.placeImages()
       this.placeVideos()
@@ -25,7 +31,7 @@ export default {
   },
   data() {
     return {
-      content: null,
+      blocks: [],
       videos: []
     }
   },
@@ -93,9 +99,6 @@ export default {
       forEach(images, (image) => {
         let imageWidth = image.getAttribute('width')
         let imageHeight = image.getAttribute('height')
-        // console.log(image.srcset)
-        const randomSizedImageUrl = sample(formatSrcSet(image.srcset, 500))
-        console.log(randomSizedImageUrl)
 
         const randomSizedImageUrl = sample(formatSrcSet(image.srcset, 350))
         const dimensions = randomSizedImageUrl.match(/(\d)+(x)(\d)+/g)[0].split('x')
