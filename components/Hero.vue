@@ -1,9 +1,7 @@
 <template>
   <div class="hero">
     <video id="video" autoplay loop muted data-setup="{}">
-      <!-- <source src="~/assets/videos/.webm" type="video/webm"> -->
-      <source src="~/assets/media/video1.mp4" type="video/mp4" />
-      <!-- <source src="~/assets/media/video2.mp4" type="video/mp4" /> -->
+      <source :src="videos[0]" type="video/mp4" />
     </video>
   </div>
 </template>
@@ -12,12 +10,11 @@
 import videojs from 'video.js'
 
 export default {
+  props: ['videos'],
   mounted() {
     this.$nextTick(() => {
       videojs('video', {}, function onPlayerReady() {
         this.play();
-
-        // this.on('ended', function() {});
       });
     })
   }

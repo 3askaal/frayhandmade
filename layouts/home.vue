@@ -1,10 +1,7 @@
 <template>
   <div class="app">
     <Header />
-    <Hero />
-    <div class="container">
-      <Nuxt />
-    </div>
+    <Nuxt />
   </div>
 </template>
 

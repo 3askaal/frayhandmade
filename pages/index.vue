@@ -1,13 +1,16 @@
 <template>
   <div>
-    <Section>
-      <div ref="body" class="body" v-html="content" />
-    </Section>
+    <Hero v-if="videos.length" :videos="videos" />
+    <div class="container">
+      <Section>
+        <div ref="body" class="body" v-html="content" />
+      </Section>
+    </div>
   </div>
 </template>
 
 <script>
-import { random, sample, forEach } from 'lodash'
+import { random, sample, forEach, shuffle } from 'lodash'
 
 export default {
   layout: 'home',
@@ -16,12 +19,24 @@ export default {
     this.content = pages.find((page) => page.slug === 'home')?.content?.rendered
 
     this.$nextTick(() => {
+      this.placeImages()
+      this.placeVideos()
+    })
+  },
+  data() {
+    return {
+      content: null,
+      videos: []
+    }
+  },
+  methods: {
+    placeImages() {
       const galleryEl = this.$refs.body.querySelector('.gallery--home');
 
       let canvasWidth = this.$refs.body.getBoundingClientRect().width
       let canvasHeight = 800
 
-      const images = Array.prototype.slice.call(this.$refs.body.querySelectorAll('.wp-block-image img'))
+      const images = shuffle(Array.prototype.slice.call(this.$refs.body.querySelectorAll('.wp-block-image img')))
       const placedImages = []
 
       const getPositions = (image) => {
@@ -48,53 +63,48 @@ export default {
         }
       }
 
-      const imageDoesntFit = (image) => {
+      const imageDoesntFit = (image, offset = 0) => {
         const imageCorners = getPositions(image)
 
         return placedImages.some((placedImage) => {
           const placedImageCorners = getPositions(placedImage)
 
           return Object.values(imageCorners).some((corner) => {
-            return corner.x > (placedImageCorners.topLeft.x - 10) &&
-              corner.y > (placedImageCorners.topLeft.y - 10) &&
-              corner.y < (placedImageCorners.bottomRight.y + 10) &&
-              corner.x < (placedImageCorners.bottomRight.x + 10);
+            return corner.x > (placedImageCorners.topLeft.x - offset) &&
+              corner.y > (placedImageCorners.topLeft.y - offset) &&
+              corner.y < (placedImageCorners.bottomRight.y + offset) &&
+              corner.x < (placedImageCorners.bottomRight.x + offset);
           })
         })
       }
 
       const formatSrcSet = (srcset, maxWidth) => {
-        console.log(srcset)
         return srcset.split(',')
           .map((srcSetItem) => {
             return srcSetItem.trim().split(' ')
           })
           .filter(([srcUrl, width]) => {
-            return srcUrl.match(/(\d)+(x)(\d)+/g) && !srcUrl.includes('scaled')
-          })
-          .filter(([srcUrl]) => {
-            const dimensions = srcUrl.match(/(\d)+(x)(\d)+/g)[0].split('x')
-            return dimensions.every((dimension) => Number(dimension) < maxWidth)
+            const realWidth = Number(width.replace('w', ''))
+            return srcUrl.match(/(\d)+(x)(\d)+/g) && !srcUrl.includes('scaled') && realWidth < 400
           })
           .map(([srcUrl]) => srcUrl)
       }
+
 
       forEach(images, (image) => {
         let imageWidth = image.getAttribute('width')
         let imageHeight = image.getAttribute('height')
 
-        const randomSizedImageUrl = sample(formatSrcSet(image.srcset, 400))
+        const randomSizedImageUrl = sample(formatSrcSet(image.srcset, 350))
         const dimensions = randomSizedImageUrl.match(/(\d)+(x)(\d)+/g)[0].split('x')
 
-        console.log(dimensions)
-
-        imageWidth = dimensions[0]
-        imageHeight = dimensions[1]
+        imageWidth = random(200, 300)
+        imageHeight = random(200, 300)
 
         let randomPositionedImage = getRandomImagePosition(imageWidth, imageHeight)
         let tries = 0
 
-        while (tries < 100 && imageDoesntFit(randomPositionedImage)) {
+        while (tries < 200 && imageDoesntFit(randomPositionedImage)) {
           randomPositionedImage = getRandomImagePosition(imageWidth, imageHeight)
           tries++
         }
@@ -105,7 +115,7 @@ export default {
 
         image.style.position = 'absolute';
         image.style.maxWidth = imageWidth + 'px';
-        // image.style.maxHeight = imageHeight + 'px';
+        image.style.maxHeight = imageHeight + 'px';
         image.style.left = randomPositionedImage.x + 'px';
         image.style.top = randomPositionedImage.y + 'px';
         image.style.transform = `rotate(${randomPositionedImage.rotate}deg)`;
@@ -114,14 +124,13 @@ export default {
 
         placedImages.push(randomPositionedImage)
       })
-    })
-  },
-  data() {
-    return {
-      content: null
+    },
+    placeVideos() {
+      const videos = Array.prototype.slice.call(this.$refs.body.querySelectorAll('.wp-block-video video'))
+
+      this.videos = videos.map(({src}) => src)
     }
-  },
-  methods: {}
+  }
 }
 </script>
 
@@ -129,6 +138,10 @@ export default {
 
 .body {
   /* position: relative; */
+}
+
+.wp-block-video {
+  display: none;
 }
 
 .wp-block-image {
@@ -151,7 +164,7 @@ export default {
   }
 
   img {
-    width: 100%;
+    width: auto;
     height: auto;
   }
 }
