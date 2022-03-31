@@ -42,4 +42,20 @@ video {
   object-fit: cover;
   object-position: center center;
 }
+
+[class^="vjs-"] {
+  display: none;
+}
+
+.vjs-playing {
+  display: block !important;
+
+  * {
+    display: none;
+  }
+
+  video {
+    display: block;
+  }
+}
 </style>

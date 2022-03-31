@@ -29,12 +29,4 @@ body {
   background-color: $black;
   color: $white;
 }
-
-.container {
-  max-width: 1000px;
-  padding: 0 2rem;
-  display: block;
-  padding-top: 200px;
-  height: 100%;
-}
 </style>

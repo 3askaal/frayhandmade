@@ -26,14 +26,4 @@ body {
   background-color: $black;
   color: $white;
 }
-
-.container {
-  max-width: 1200px;
-  padding: 0 2rem;
-  display: block;
-  // display: flex;
-  // flex-direction: column;
-  // flex-grow: 1;
-  // height: 100%;
-}
 </style>

@@ -2,10 +2,10 @@
   <div>
     <Hero v-if="videos.length" :videos="videos" />
     <div ref="body">
-      <Section v-for="(block, index) in blocks" :key="index">
-        <div v-if="block.includes('gallery--home')" ref="gallery" class="body" v-html="block" />
-        <div v-else-if="block.includes('wp-block-video')" ref="gallery" class="body" v-html="block" />
-        <div v-else v-html="block" class="container"></div>
+      <Section v-for="(block, index) in blocks" :key="index" :class="block.type">
+        <div v-if="block.content.includes('gallery--home')" class="container--gallery" v-html="block.content" />
+        <div v-else-if="block.content.includes('wp-block-video')" class="body__video" v-html="block.content" />
+        <div v-else v-html="block.content" class="container--text"></div>
       </Section>
     </div>
   </div>
@@ -22,7 +22,17 @@ export default {
 
     const renderedString = pages.find((page) => page.slug === 'home')?.content?.rendered
     const doc = new DOMParser().parseFromString(renderedString, 'text/html');
-    this.blocks = [...doc.body.childNodes].map((node) => node.outerHTML).filter((html) => html !== undefined)
+    this.blocks = [...doc.body.childNodes]
+      .map((node) => node.outerHTML)
+      .filter((html) => html !== undefined)
+      .map((html) => {
+        return {
+          type: (html.includes('wp-block-video') && 'video') ||
+            (html.includes('gallery--home') && 'gallery') ||
+            'text',
+          content: html
+        }
+      })
 
     this.$nextTick(() => {
       this.placeImages()
@@ -172,5 +182,21 @@ export default {
     width: auto;
     height: auto;
   }
+}
+
+.body__video {
+  display: none;
+}
+
+.container--text {
+  max-width: 720px;
+  padding: 0 2rem;
+  margin: 0 auto;
+  display: block;
+  height: 100%;
+}
+
+.container--gallery {
+  /* padding: 0 ; */
 }
 </style>

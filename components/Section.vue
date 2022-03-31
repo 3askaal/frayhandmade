@@ -6,6 +6,10 @@
 
 <style lang="scss" scoped>
 .section {
-  padding: 5rem 0;
+  margin-top: 8rem;
+
+  &.video {
+    display: none;
+  }
 }
 </style>
