@@ -20,23 +20,28 @@ export default {
     const pages = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/pages`)
     this.content = pages.find((page) => page.slug === 'home')?.content?.rendered
 
-    const renderedString = pages.find((page) => page.slug === 'home')?.content?.rendered
-    const doc = new DOMParser().parseFromString(renderedString, 'text/html');
-    this.blocks = [...doc.body.childNodes]
+    const content = pages.find((page) => page.slug === 'home')?.content?.rendered
+    const contentDoc = new DOMParser().parseFromString(content, 'text/html');
+
+    const blocks = [...contentDoc.body.childNodes]
       .map((node) => node.outerHTML)
       .filter((html) => html !== undefined)
       .map((html) => {
         return {
-          type: (html.includes('wp-block-video') && 'video') ||
-            (html.includes('gallery--home') && 'gallery') ||
-            'text',
+          type: (html.includes('wp-block-video') && 'video') || (html.includes('gallery--home') && 'gallery') || 'text',
           content: html
         }
       })
 
+    this.blocks = blocks.filter(({type}) => type !== 'video')
+
+    const videoUrls = blocks
+      .filter(({type}) => type === 'video')
+      .map(({ content }) => content.match(/src=\"([^"]*)\"/)[1])
+
     this.$nextTick(() => {
       this.placeImages()
-      this.placeVideos()
+      this.placeVideos(videoUrls)
     })
   },
   data() {
@@ -140,10 +145,8 @@ export default {
         placedImages.push(randomPositionedImage)
       })
     },
-    placeVideos() {
-      const videos = Array.prototype.slice.call(this.$refs.body.querySelectorAll('.wp-block-video video'))
-
-      this.videos = videos.map(({src}) => src)
+    placeVideos(videoUrls) {
+      this.videos = videoUrls
     }
   }
 }
