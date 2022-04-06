@@ -18,7 +18,6 @@ export default {
 
 				if (player !== null) {
 					player.then(() => {})
-
           player.catch(() => {})
         }
       });
