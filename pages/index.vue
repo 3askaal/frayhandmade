@@ -4,7 +4,6 @@
     <div ref="body">
       <Section v-for="(block, index) in blocks" :key="index" :class="block.type">
         <div v-if="block.content.includes('gallery--home')" class="container--gallery" v-html="block.content" />
-        <div v-else-if="block.content.includes('wp-block-video')" class="body__video" v-html="block.content" />
         <div v-else v-html="block.content" class="container--text"></div>
       </Section>
     </div>
@@ -54,10 +53,11 @@ export default {
     placeImages() {
       const galleryEl = this.$refs.body.querySelector('.gallery--home');
 
-      let canvasWidth = this.$refs.body.getBoundingClientRect().width
-      let canvasHeight = 800
-
       const images = shuffle(Array.prototype.slice.call(this.$refs.body.querySelectorAll('.wp-block-image img')))
+
+      let canvasWidth = this.$refs.body.getBoundingClientRect().width
+      let canvasHeight = images.length * 50
+
       const placedImages = []
 
       const getPositions = (image) => {
@@ -70,10 +70,12 @@ export default {
         }
       }
 
-      const getRandomImagePosition = (imageWidth, imageHeight) => {
-        let randomX = random(0, (canvasWidth - imageWidth))
-        let randomY = random(0, (canvasHeight - imageHeight))
-        let randomRotate = random(-30, 30)
+      const getRandomImagePosition = () => {
+        const imageWidth = random(200, canvasWidth / 3)
+        const imageHeight = random(200, canvasHeight / 3)
+        const randomX = random(0, (canvasWidth - imageWidth))
+        const randomY = random(0, (canvasHeight - imageHeight))
+        const randomRotate = random(-30, 30)
 
         return {
           x: randomX,
@@ -87,16 +89,30 @@ export default {
       const imageDoesntFit = (image, offset = 0) => {
         const imageCorners = getPositions(image)
 
-        return placedImages.some((placedImage) => {
-          const placedImageCorners = getPositions(placedImage)
+        const cornerY = 100
+        const cornerX = 100
 
-          return Object.values(imageCorners).some((corner) => {
+        const hitsCorner = Object.values(imageCorners).some((corner) => {
+          return false ||
+            (corner.x < cornerX && corner.y < cornerY) || // topLeft
+            (corner.x > (canvasWidth - cornerX) && corner.y < cornerY) || // topRight
+            (corner.x < cornerX && corner.y > (canvasHeight - cornerY)) || // bottomLeft
+            (corner.x > (canvasWidth - cornerX) && corner.y < (canvasHeight - cornerY)) // bottomRight
+        })
+
+        const hitsImage = Object.values(imageCorners).some((corner) => {
+
+          return placedImages.some((placedImage) => {
+            const placedImageCorners = getPositions(placedImage)
+
             return corner.x > (placedImageCorners.topLeft.x - offset) &&
               corner.y > (placedImageCorners.topLeft.y - offset) &&
               corner.y < (placedImageCorners.bottomRight.y + offset) &&
               corner.x < (placedImageCorners.bottomRight.x + offset);
           })
         })
+
+        return hitsCorner || hitsImage
       }
 
       const formatSrcSet = (srcset, maxWidth) => {
@@ -113,19 +129,15 @@ export default {
 
       forEach(images, (image) => {
         let imageWidth = image.getAttribute('width')
-        let imageHeight = image.getAttribute('height')
+        const newSrcSet = formatSrcSet(image.srcset)
 
-        const randomSizedImageUrl = sample(formatSrcSet(image.srcset, 350))
-        const dimensions = randomSizedImageUrl.match(/(\d)+(x)(\d)+/g)[0].split('x')
+        // const dimensions = randomSizedImageUrl.match(/(\d)+(x)(\d)+/g)[0].split('x')
 
-        imageWidth = random(200, 300)
-        imageHeight = random(200, 300)
-
-        let randomPositionedImage = getRandomImagePosition(imageWidth, imageHeight)
+        let randomPositionedImage = getRandomImagePosition()
         let tries = 0
 
         while (tries < 200 && imageDoesntFit(randomPositionedImage)) {
-          randomPositionedImage = getRandomImagePosition(imageWidth, imageHeight)
+          randomPositionedImage = getRandomImagePosition()
           tries++
         }
 
@@ -134,8 +146,8 @@ export default {
         }
 
         image.style.position = 'absolute';
-        image.style.maxWidth = imageWidth + 'px';
-        image.style.maxHeight = imageHeight + 'px';
+        image.style.maxWidth = randomPositionedImage.width + 'px';
+        image.style.maxHeight = randomPositionedImage.height + 'px';
         image.style.left = randomPositionedImage.x + 'px';
         image.style.top = randomPositionedImage.y + 'px';
         image.style.transform = `rotate(${randomPositionedImage.rotate}deg)`;

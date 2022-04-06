@@ -14,7 +14,15 @@ export default {
   mounted() {
     this.$nextTick(() => {
       videojs('video', {}, function onPlayerReady() {
-        this.play();
+        const player = this.play()
+
+				if (player !== null) {
+					player.then((res) => {
+            console.log(res)
+          })
+
+          player.catch(() => {})
+        }
       });
     })
   }
