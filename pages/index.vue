@@ -34,13 +34,12 @@ export default {
 
     this.blocks = blocks.filter(({type}) => type !== 'video')
 
-    const videoUrls = blocks
+    this.videos = blocks
       .filter(({type}) => type === 'video')
       .map(({ content }) => content.match(/src=\"([^"]*)\"/)[1])
 
     this.$nextTick(() => {
       this.placeImages()
-      this.placeVideos(videoUrls)
     })
   },
   data() {
@@ -66,13 +65,13 @@ export default {
           topRight: { x: image.x + image.width, y: image.y },
           bottomLeft: { x: image.x, y: image.y + image.height },
           bottomRight: { x: image.x + image.width, y: image.y + image.height },
-          middle: { x: image.x + (image.width / 2), y: image.y + (image.height / 2) }
+          middle: { x: image.x + Math.floor(image.width / 2), y: image.y + Math.floor(image.height / 2) }
         }
       }
 
       const getRandomImagePosition = () => {
-        const imageWidth = random(200, canvasWidth / 3)
-        const imageHeight = random(200, canvasHeight / 3)
+        const imageWidth = random(200, Math.floor(canvasWidth / 3))
+        const imageHeight = random(200, Math.floor(canvasHeight / 3))
         const randomX = random(0, (canvasWidth - imageWidth))
         const randomY = random(0, (canvasHeight - imageHeight))
         const randomRotate = random(-30, 30)
@@ -101,7 +100,6 @@ export default {
         })
 
         const hitsImage = Object.values(imageCorners).some((corner) => {
-
           return placedImages.some((placedImage) => {
             const placedImageCorners = getPositions(placedImage)
 
@@ -136,12 +134,12 @@ export default {
         let randomPositionedImage = getRandomImagePosition()
         let tries = 0
 
-        while (tries < 200 && imageDoesntFit(randomPositionedImage)) {
+        while (imageDoesntFit(randomPositionedImage) && tries < 100) {
           randomPositionedImage = getRandomImagePosition()
           tries++
         }
 
-        if (tries === 200) {
+        if (tries === 100) {
           return
         }
 
@@ -156,9 +154,6 @@ export default {
 
         placedImages.push(randomPositionedImage)
       })
-    },
-    placeVideos(videoUrls) {
-      this.videos = videoUrls
     }
   }
 }
