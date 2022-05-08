@@ -1,9 +1,10 @@
-import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+// import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
+import { HTTPClientFactory, GroupedProduct } from '@woocommerce/api';
 
-export const WooCommerceApi = new WooCommerceRestApi({
-  url: process.env.baseUrl,
-  consumerKey: process.env.woocommerce.key,
-  consumerSecret: process.env.woocommerce.secret,
-  version: "wc/v3",
-  queryStringAuth: true
-});
+export const WooCommerceApi = HTTPClientFactory
+  .build(process.env.baseUrl)
+  .withOAuth(process.env.woocommerce.key, process.env.woocommerce.secret)
+  .create();
+
+
+export const products = GroupedProduct.restRepository(WooCommerceApi);

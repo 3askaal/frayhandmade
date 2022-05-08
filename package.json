@@ -11,8 +11,10 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "@vue-stripe/vue-stripe": "^4.4.1",
+    "@woocommerce/api": "^0.2.0",
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "await-to-js": "^3.0.0",
+    "axios-oauth-1.0a": "^0.3.4",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.8.3",

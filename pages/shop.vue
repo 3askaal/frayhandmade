@@ -19,16 +19,17 @@
 
 <script>
 import to from 'await-to-js'
+import { WooCommerceApi, products } from '../api'
 
 export default {
   async mounted() {
-    const [getProductsErr, getProductsSuccess] = await to(this.$axios.$get(`${process.env.baseUrl}/wp-json/wc/v3/products`));
+    const [getProductsErr, getProductsSuccess] = await to(products.list());
 
     if (getProductsErr) {
       throw getProductsErr
     }
 
-    this.products = getProductsSuccess
+    this.products = getProductsSuccess.data
   },
   data() {
     return {
