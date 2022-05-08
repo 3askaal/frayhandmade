@@ -4,6 +4,7 @@ import { HTTPClientFactory, GroupedProduct } from '@woocommerce/api';
 export const WooCommerceApi = HTTPClientFactory
   .build(process.env.baseUrl)
   .withOAuth(process.env.woocommerce.key, process.env.woocommerce.secret)
+  .withIndexPermalinks()
   .create();
 
 
