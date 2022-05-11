@@ -57,12 +57,19 @@ export default {
     ]
   },
 
+  axios: {
+    baseURL: process.env.BASE_URL + '/api',
+
+    headers: {
+      common: {
+        'Authorization': `bearer ${process.env.API_KEY}`
+      }
+    }
+  },
+
   env: {
     baseUrl: process.env.BASE_URL,
-    woocommerce: {
-      key: process.env.WOOCOMMERCE_KEY,
-      secret: process.env.WOOCOMMERCE_SECRET,
-    },
+    apiKey: process.env.API_KEY,
     stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY
   }
 }

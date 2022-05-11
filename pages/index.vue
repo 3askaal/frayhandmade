@@ -16,31 +16,35 @@ import { random, sample, forEach, shuffle } from 'lodash'
 export default {
   layout: 'home',
   async mounted() {
-    const pages = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/pages`)
-    this.content = pages.find((page) => page.slug === 'home')?.content?.rendered
+    const data = await this.$axios.get('home-page?populate=%2A')
 
-    const content = pages.find((page) => page.slug === 'home')?.content?.rendered
-    const contentDoc = new DOMParser().parseFromString(content, 'text/html');
+    this.videos = data.data.data.attributes.Hero.data.map(({attributes}) => attributes.url)
 
-    const blocks = [...contentDoc.body.childNodes]
-      .map((node) => node.outerHTML)
-      .filter((html) => html !== undefined)
-      .map((html) => {
-        return {
-          type: (html.includes('wp-block-video') && 'video') || (html.includes('gallery--home') && 'gallery') || 'text',
-          content: html
-        }
-      })
+    // const pages = await this.$axios.$get(`${process.env.baseUrl}/wp-json/wp/v2/pages`)
+    // this.content = pages.find((page) => page.slug === 'home')?.content?.rendered
 
-    this.blocks = blocks.filter(({type}) => type !== 'video')
+    // const content = pages.find((page) => page.slug === 'home')?.content?.rendered
+    // const contentDoc = new DOMParser().parseFromString(content, 'text/html');
 
-    this.videos = blocks
-      .filter(({type}) => type === 'video')
-      .map(({ content }) => content.match(/src=\"([^"]*)\"/)[1])
+    // const blocks = [...contentDoc.body.childNodes]
+    //   .map((node) => node.outerHTML)
+    //   .filter((html) => html !== undefined)
+    //   .map((html) => {
+    //     return {
+    //       type: (html.includes('wp-block-video') && 'video') || (html.includes('gallery--home') && 'gallery') || 'text',
+    //       content: html
+    //     }
+    //   })
 
-    this.$nextTick(() => {
-      this.placeImages()
-    })
+    // this.blocks = blocks.filter(({type}) => type !== 'video')
+
+    // this.videos = blocks
+    //   .filter(({type}) => type === 'video')
+    //   .map(({ content }) => content.match(/src=\"([^"]*)\"/)[1])
+
+    // this.$nextTick(() => {
+    //   this.placeImages()
+    // })
   },
   data() {
     return {

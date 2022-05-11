@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <video id="video" autoplay loop muted data-setup="{}">
-      <source :src="videos[0]" type="video/mp4" />
+      <source :src="`${baseUrl}${videos[0]}`" type="video/mp4" />
     </video>
   </div>
 </template>
@@ -11,6 +11,11 @@ import videojs from 'video.js'
 
 export default {
   props: ['videos'],
+  data() {
+    return {
+      baseUrl: process.env.baseUrl
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       videojs('video', {}, function onPlayerReady() {
