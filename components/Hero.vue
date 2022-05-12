@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <video id="video" autoplay loop muted data-setup="{}">
-      <source :src="`${baseUrl}${videos[0]}`" type="video/mp4" />
+      <source :src="`${videos[0]}`" type="video/mp4" />
     </video>
   </div>
 </template>
