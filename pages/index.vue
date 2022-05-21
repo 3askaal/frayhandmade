@@ -14,18 +14,20 @@
 </template>
 
 <script>
-import { random, sample, forEach, shuffle } from 'lodash'
+import { random } from 'lodash'
 
 export default {
   layout: 'home',
   async mounted() {
     const data = await this.$axios.get('home-page?populate=%2A')
 
-    this.videos = data.data.data.attributes.Hero.data.map(({attributes}) => attributes.url)
+    this.videos = data.data.data.attributes.hero.data.map(({attributes}) => attributes.url)
 
-    const imageUrls = data.data.data.attributes.Gallery.data.map(({attributes}) => attributes.formats.small.url)
+    const imageUrls = data.data.data.attributes.gallery.data.map(({attributes}) => attributes.formats.small.url)
 
     this.images = this.formatImages(imageUrls).filter((image) => image !== null)
+
+    console.log(data.data.data.attributes)
   },
   data() {
     return {
@@ -104,7 +106,7 @@ export default {
           tries++
         }
 
-        if (tries === 100) {
+        if (tries === 200) {
           return null
         }
 
