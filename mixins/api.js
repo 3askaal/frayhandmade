@@ -1,8 +1,10 @@
 export default {
-  created() {
-    this.$api = {
-      get: this.apiGet,
-      post: this.apiPost,
+  computed: {
+    $api() {
+      return {
+        get: this.apiGet,
+        post: this.apiPost,
+      }
     }
   },
   methods: {

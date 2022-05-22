@@ -22,13 +22,9 @@ import to from 'await-to-js'
 
 export default {
   async mounted() {
-    const [getProductsErr, getProductsSuccess] = await to(this.$axios.$get(`${process.env.baseUrl}/wp-json/wc/v3/products`));
+    const data = await this.$api.get('products?populate=%2A')
 
-    if (getProductsErr) {
-      throw getProductsErr
-    }
-
-    this.products = getProductsSuccess
+    console.log(data)
   },
   data() {
     return {
