@@ -19,15 +19,13 @@ import { random } from 'lodash'
 export default {
   layout: 'home',
   async mounted() {
-    const data = await this.$axios.get('home-page?populate=%2A')
+    const data = await this.$api.get('home-page?populate=%2A')
 
-    this.videos = data.data.data.attributes.hero.data.map(({attributes}) => attributes.url)
+    this.videos = data.hero.data.map(({attributes}) => attributes.url)
 
-    const imageUrls = data.data.data.attributes.gallery.data.map(({attributes}) => attributes.formats.small.url)
+    const imageUrls = data.gallery.data.map(({attributes}) => attributes.formats.small.url)
 
     this.images = this.formatImages(imageUrls).filter((image) => image !== null)
-
-    console.log(data.data.data.attributes)
   },
   data() {
     return {
