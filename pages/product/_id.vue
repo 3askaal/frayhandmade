@@ -2,11 +2,11 @@
   <div class="product" v-if="product">
     <div class="product__carousel">
       <b-carousel>
-        <b-carousel-slide v-for="image in product.images" :img-src="image.src" :key="image.id" />
+        <b-carousel-slide v-for="image in [product.image.data]" :img-src="image.url" :key="image.id" />
       </b-carousel>
     </div>
     <div class="product__details">
-      <h1 class="product__title">{{ product.name }}</h1>
+      <h1 class="product__title">{{ product.title }}</h1>
       <p class="product__description">{{ product.description || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa unde quod facere natus quo incidunt nesciunt porro, sed, est deleniti culpa eligendi ducimus rerum distinctio officia, error magni officiis harum?' }}</p>
       <b-button @click="() => add(product)">
         Add to cart
@@ -23,15 +23,11 @@ import { mapMutations } from 'vuex'
 export default {
   async mounted() {
     const productId = this.$route.params.id
-    const [getProductErr, getProductSuccess] = await to(this.$axios.$get(`${process.env.baseUrl}/wp-json/wc/v3/products/${productId}`));
+    const data = await to(this.$api.get(`products/${productId}`));
 
-    if (getProductErr) {
-      throw getProductErr
-    }
+    this.product = data[1]
 
-    console.log(getProductSuccess)
-
-    this.product = getProductSuccess
+    console.log(this.product)
   },
   data() {
     return {

@@ -19,7 +19,7 @@ import { random } from 'lodash'
 export default {
   layout: 'home',
   async mounted() {
-    const data = await this.$api.get('home-page?populate=%2A')
+    const data = await this.$api.get('home-page')
 
     console.log(data)
 

@@ -7,8 +7,8 @@
             <img :src="product.image.data.url" alt="">
           </div>
           <div class="products__item__content">
-            <p v-html="product.name"></p>
-            <p v-html="product.description"></p>
+            <p v-html="product.title"></p>
+            <!-- <p v-html="product.description"></p> -->
             <p v-html="product.price">€{{ product.price }}}</p>
           </div>
         </router-link>
@@ -22,7 +22,7 @@ import to from 'await-to-js'
 
 export default {
   async mounted() {
-    this.products = await this.$api.get('products?populate=%2A')
+    this.products = await this.$api.get('products')
   },
   data() {
     return {
@@ -51,6 +51,7 @@ export default {
 
   &:hover {
     /* box-shadow: 0 0 0 1px $black; */
+    background-color: rgba(black, .1);
 
     .products__item__content {
       justify-content: space-between;
@@ -86,6 +87,7 @@ export default {
   margin-top: 1rem;
   width: 100%;
   position: relative;
+  /* border: 1px solid red; */
 
   > * {
     transition: all .4s ease;

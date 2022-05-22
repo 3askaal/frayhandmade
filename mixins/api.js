@@ -12,7 +12,7 @@ export default {
   methods: {
     async apiGet(path) {
       try {
-        const { data } = await this.$axios.get(path);
+        const { data } = await this.$axios.get(`${path}?populate=%2A`);
 
         return formatResponse(data).data;
       } catch (err) {

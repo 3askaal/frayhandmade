@@ -29,4 +29,9 @@ body {
   background-color: $black;
   color: $white;
 }
+
+.app {
+  padding-top: 200px;
+  padding-bottom: 200px;
+}
 </style>
