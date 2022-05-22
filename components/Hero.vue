@@ -36,7 +36,7 @@ export default {
   position: relative;
   top: 0;
   width: 100%;
-  min-height: 100vh;
+  max-height: 100vh;
   overflow: hidden;
   opacity: .6;
   filter: grayscale(1);
