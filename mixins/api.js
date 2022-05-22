@@ -12,7 +12,7 @@ export default {
       try {
         const data = await this.$axios.get(path);
 
-        return data.data.data.attributes;
+        return data.data.data.attributes || data.data.data;
       } catch (err) {
         throw err
       }
@@ -21,7 +21,7 @@ export default {
       try {
         const data = await this.$axios.post(path, payload);
 
-        return data.data.data.attributes;
+        return data.data.data.attributes || data.data.data;
       } catch (err) {
         throw err
       }

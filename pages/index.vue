@@ -23,9 +23,10 @@ export default {
 
     this.videos = data.hero.data.map(({attributes}) => attributes.url)
 
-    const imageUrls = data.gallery.data.map(({attributes}) => attributes.formats.small.url)
-
-    this.images = this.formatImages(imageUrls).filter((image) => image !== null)
+    if (data.gallery.data) {
+      const imageUrls = data.gallery.data.map(({attributes}) => attributes.formats.small.url)
+      this.images = this.formatImages(imageUrls).filter((image) => image !== null)
+    }
   },
   data() {
     return {
