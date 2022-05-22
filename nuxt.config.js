@@ -20,11 +20,10 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/style/global.scss',
     'normalize.css/normalize.css',
-    // 'reset-css/reset.css',
     '~/assets/fonts/onyx/stylesheet.css',
-    // '~/assets/fonts/fonts.css',
+    'bootstrap/scss/bootstrap-reboot.scss',
+    '~/style/global.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -53,8 +52,10 @@ export default {
 
   styleResources: {
     scss: [
+      'bootstrap/scss/_functions.scss',
+      'bootstrap/scss/_mixins.scss',
+      'bootstrap/scss/_variables.scss',
       '~/style/variables.scss',
-      'bootstrap/scss/bootstrap-reboot.scss',
     ]
   },
 

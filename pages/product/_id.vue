@@ -7,11 +7,12 @@
     </div>
     <div class="product__details">
       <h1 class="product__title">{{ product.title }}</h1>
+      <p class="product__price">&euro;{{ product.price }}</p>
       <p class="product__description">{{ product.description || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa unde quod facere natus quo incidunt nesciunt porro, sed, est deleniti culpa eligendi ducimus rerum distinctio officia, error magni officiis harum?' }}</p>
-      <b-button @click="() => add(product)">
+      <Button @click="() => add(product)">
         Add to cart
         <b-icon-plus />
-      </b-button>
+      </Button>
     </div>
   </div>
 </template>
@@ -22,12 +23,10 @@ import { mapMutations } from 'vuex'
 
 export default {
   async mounted() {
-    const productId = this.$route.params.id
+    const productId = this.$route.params.id;
     const data = await to(this.$api.get(`products/${productId}`));
 
-    this.product = data[1]
-
-    console.log(this.product)
+    this.product = data[1];
   },
   data() {
     return {
@@ -51,12 +50,20 @@ export default {
   padding-bottom: 4rem;
 }
 
-.product__carousel {
-  margin-bottom: 2rem;
+.product__details {
+  > * + * {
+    margin-top: $spacer;
+  }
 }
 
-.product__title {
-  margin-bottom: 1rem;
+.product__carousel {
+  margin-bottom: 3rem;
+}
+
+.product__price {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: $subtle;
 }
 
 .product__description {

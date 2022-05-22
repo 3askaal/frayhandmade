@@ -8,11 +8,11 @@
       <router-link to="/shop" class="header__nav__item">Shop</router-link>
       <router-link to="/contact" class="header__nav__item">Contact</router-link>
 
-      <span class="header__nav__item header__extra">
+      <span class="header__nav__item header__extra" :class="{'header__nav__item--active': productLength}">
         <router-link to="/checkout" class="header__nav__item">
           <b-icon-cart />
-          <span class="header__nav__item__indicator" v-if="this.$store.state.checkout.products.length">
-            {{ this.$store.state.checkout.products.length }}
+          <span class="header__nav__item__indicator" v-if="productLength">
+            {{ productLength }}
           </span>
         </router-link>
       </span>
@@ -26,7 +26,12 @@ export default {
     return {}
   },
   mounted() {},
-  methods: {}
+  methods: {},
+  computed: {
+    productLength () {
+      return this.$store.state.checkout.products.length
+    },
+  }
 }
 </script>
 
@@ -40,12 +45,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  padding: $spacer * 2;
+  padding: $spacer * 2 $spacer * 3;
   z-index: 100;
 
   @media only screen and (min-width: 768px) {
     flex-direction: row;
-    padding: $spacer * 3;
+    padding: $spacer * 3 $spacer * 4;
   }
 }
 
@@ -73,11 +78,25 @@ export default {
   position: relative;
   color: $black;
   letter-spacing: .125rem;
+  cursor: pointer;
+  text-decoration: unset;
 
   &:hover {
-    text-decoration: unset;
-    padding-bottom: .5rem;
-    border-bottom: 1px solid $primary;
+    color: $primary;
+
+    svg {
+      fill: $primary;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      bottom: -.5rem;
+      border-bottom: 1px solid red;
+    }
   }
 
   +.header__nav__item {
@@ -90,13 +109,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $primary;
-  width: 28px;
-  height: 28px;
-  top: calc(100% + .5rem);
-  left: calc(100% + .5rem);
+  top: 0;
+  right: -1rem;
   border-radius: 100%;
   font-size: .75rem;
-  color: $white;
+  color: $primary;
+  pointer-events: none;
+
+  .header__nav__item--active & {
+    color: $primary;
+  }
 }
 </style>

@@ -6,6 +6,11 @@ body,
   min-height: 100vh;
 }
 
+body {
+  font-size: 14px;
+  color: $black;
+}
+
 .body {
   > * {
     margin-bottom: 4rem !important;
@@ -16,13 +21,19 @@ p {
   margin: 0;
 }
 
+a {
+  color: $primary;
+
+  &:hover {
+    color: darken($primary, 10%);
+  }
+}
+
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   font-family: 'onyxregular', Arial, Helvetica, sans-serif !important;
+  letter-spacing: .075rem;
 }
 
 // a {

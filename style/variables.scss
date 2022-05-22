@@ -1,6 +1,7 @@
 $primary: #FF2626;
 $primary-dark: #BD1616;
-// $secondary: ;
 
-$white: #FFF;
-$black: #252525;
+$white: darken(white, 5%);
+$black: lighten(black, 10%);
+
+$subtle: darken(white, 40%);
