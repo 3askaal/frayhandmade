@@ -21,10 +21,13 @@ export default {
   async mounted() {
     const data = await this.$api.get('home-page?populate=%2A')
 
-    this.videos = data.hero.data.map(({attributes}) => attributes.url)
+    console.log(data)
+
+    this.videos = data.hero.data.map(({ url }) => url)
 
     if (data.gallery.data) {
-      const imageUrls = data.gallery.data.map(({attributes}) => attributes.formats.small.url)
+      const imageUrls = data.gallery.data.map(({ formats }) => formats.small.url)
+
       this.images = this.formatImages(imageUrls).filter((image) => image !== null)
     }
   },

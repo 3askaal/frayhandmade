@@ -1,3 +1,5 @@
+import { formatResponse } from "../helpers/formatResponse";
+
 export default {
   computed: {
     $api() {
@@ -10,18 +12,18 @@ export default {
   methods: {
     async apiGet(path) {
       try {
-        const data = await this.$axios.get(path);
+        const { data } = await this.$axios.get(path);
 
-        return data.data.data.attributes || data.data.data;
+        return formatResponse(data).data;
       } catch (err) {
         throw err
       }
     },
     async apiPost(path, payload) {
       try {
-        const data = await this.$axios.post(path, payload);
+        const { data } = await this.$axios.post(path, payload);
 
-        return data.data.data.attributes || data.data.data;
+        return formatResponse(data).data;
       } catch (err) {
         throw err
       }

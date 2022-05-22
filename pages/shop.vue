@@ -3,8 +3,8 @@
     <b-row>
       <b-col cols="4" class="products__item" v-for="product in products" :key="product.id">
         <router-link :to="`/product/${product.id}`">
-          <div class="products__item__image" v-if="product.image.data.attributes.url">
-            <img :src="product.image.data.attributes.url" alt="">
+          <div class="products__item__image" v-if="product.image.data.url">
+            <img :src="product.image.data.url" alt="">
           </div>
           <div class="products__item__content">
             <p v-html="product.name"></p>
@@ -22,11 +22,7 @@ import to from 'await-to-js'
 
 export default {
   async mounted() {
-    const products = await this.$api.get('products?populate=%2A')
-
-    this.products = products.map(({ attributes, ...rest }) => ({ ...rest, ...attributes }))
-
-    console.log(this.products)
+    this.products = await this.$api.get('products?populate=%2A')
   },
   data() {
     return {
