@@ -36,20 +36,16 @@
           <p><strong>{{ subTotal }}</strong></p>
         </div>
 
-        <Button block variant="primary" class="cart__submit" @click="submit">Checkout</Button>
+        <Button is="router-link" to="checkout" block class="cart__submit">Checkout</Button>
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-import { StripeCheckout } from '@vue-stripe/vue-stripe';
 import { mapMutations } from 'vuex'
 
 export default {
-  components: {
-    StripeCheckout
-  },
   methods: {
     ...mapMutations({
       remove: 'cart/remove'

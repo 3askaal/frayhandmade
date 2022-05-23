@@ -4,30 +4,38 @@
       <b-row>
 
         <b-col cols="6">
+          <p>First Name</p>
           <b-input v-model="customerInfo.name" />
         </b-col>
         <b-col cols="6">
+          <p>Last Name</p>
           <b-input v-model="customerInfo.lastName" />
         </b-col>
 
         <b-col cols="6">
+          <p>Street Address</p>
           <b-input v-model="customerInfo.streetAddress" />
         </b-col>
         <b-col cols="6">
+          <p>House Number</p>
           <b-input v-model="customerInfo.houseNumber" />
         </b-col>
 
         <b-col cols="6">
+          <p>Postal Code</p>
           <b-input v-model="customerInfo.postalCode" />
         </b-col>
         <b-col cols="6">
+          <p>Country</p>
           <b-input v-model="customerInfo.country" />
         </b-col>
 
         <b-col cols="6">
+          <p>Email</p>
           <b-input v-model="customerInfo.email" />
         </b-col>
         <b-col cols="6">
+          <p>Phone Number</p>
           <b-input v-model="customerInfo.phoneNumber" />
         </b-col>
 
@@ -53,9 +61,6 @@ import { loadStripe } from '@stripe/stripe-js'
 const stripePromise = loadStripe(process.env.stripePublishableKey)
 
 export default {
-  components: {
-    StripeCheckout
-  },
   data() {
     return {
       customerInfo: {
@@ -100,50 +105,22 @@ export default {
 </script>
 
 <style lang="scss">
-.checkout {}
+.checkout {
+  .row {
+    > * {
+      margin-bottom: $spacer;
 
-.checkout__products {
+      p {
+        margin-bottom: $spacer * .5;
+      }
+    }
+  }
+}
+
+.checkout__form {
   border-top: 1px solid $subtle;
   border-bottom: 1px solid $subtle;
   padding: $spacer * 3 0;
   margin-bottom: $spacer * 2;
 }
-
-.checkout__products__message {
-  display: flex;
-  color: $subtle;
-  justify-content: center;
-}
-
-.checkout__products__product {
-  display: flex;
-
-  + .checkout__products__product {
-    margin-top: $spacer * 2;
-  }
-}
-
-.checkout__products__product__image {
-  display: block;
-  width: 100%;
-  max-height: 160px;
-  object-fit: cover;
-  object-position: center;
-}
-
-.checkout__products__product__title {
-  margin-bottom: 1rem;
-}
-
-.checkout__products__product__desc {
-  margin-bottom: 1rem;
-}
-
-.checkout__products__product__amount {
-  min-width: 50px;
-  width: 50px;
-}
-
-.checkout__products__product__remove {}
-
 </style>

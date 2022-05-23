@@ -1,6 +1,8 @@
 <template>
-  <button
+  <component
+    :is="type"
     class="button"
+    :to="to"
     :class="{
       'button--block': block,
       [`button--${size}`]: size,
@@ -8,12 +10,19 @@
     @click="$emit('click')"
   >
     <slot />
-  </button>
+  </component>
 </template>
 
 <script>
 export default {
   props: {
+    type: {
+      type: String,
+      default: 'button'
+    },
+    to: {
+      type: String
+    },
     block: {
       type: Boolean,
       default: false
@@ -21,7 +30,7 @@ export default {
     size: {
       type: String,
       default: 'm'
-    }
+    },
   }
 }
 </script>
