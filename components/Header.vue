@@ -29,7 +29,7 @@ export default {
   methods: {},
   computed: {
     productLength () {
-      return this.$store.state.checkout.products.length
+      return this.$store.state.cart.products.length
     },
   }
 }

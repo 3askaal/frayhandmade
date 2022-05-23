@@ -50,15 +50,6 @@ export default {
   components: {
     StripeCheckout
   },
-  data() {
-    this.publishableKey = process.env.stripePublishableKey;
-
-    return {
-      loading: false,
-      successURL: window.location.href + '/status?status=success',
-      cancelURL: window.location.href + '/status?status=error',
-    };
-  },
   methods: {
     ...mapMutations({
       remove: 'cart/remove'

@@ -48,19 +48,16 @@
 </template>
 
 <script>
-import { StripeCheckout } from '@vue-stripe/vue-stripe';
+import { loadStripe } from '@stripe/stripe-js'
+
+const stripePromise = loadStripe(process.env.stripePublishableKey)
 
 export default {
   components: {
     StripeCheckout
   },
   data() {
-    // this.publishableKey = process.env.stripePublishableKey;
-
     return {
-      // loading: false,
-      // successURL: window.location.href + '/status?status=success',
-      // cancelURL: window.location.href + '/status?status=error',
       checkout: {
         name: '',
         lastName: '',
@@ -75,8 +72,18 @@ export default {
   },
   methods: {
     async submit () {
-      // this.$refs.checkoutRef.redirectToCheckout();
-      const data = await this.$api.post('order', this.data.checkout)
+      const stripe = await stripePromise
+
+      const data = await this.$api.post('order', {
+        products: [],
+        info: this.data.checkout
+      })
+
+      const sessionId = data.id
+
+      const result = await stripe.redirectToCheckout({
+        sessionId
+      })
     },
   },
   computed: {

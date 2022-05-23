@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
+    "@stripe/stripe-js": "^1.29.0",
     "@vue-stripe/vue-stripe": "^4.4.1",
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
     "await-to-js": "^3.0.0",
