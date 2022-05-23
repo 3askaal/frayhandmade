@@ -60,7 +60,7 @@ export default {
   },
 
   axios: {
-    baseURL: process.env.BASE_URL + '/api',
+    baseURL: `${process.env.API_BASE_URL}/api`,
 
     headers: {
       common: {
@@ -69,8 +69,8 @@ export default {
     }
   },
 
+
   env: {
-    baseUrl: process.env.BASE_URL,
     apiKey: process.env.API_KEY,
     stripePublishableKey: process.env.STRIPE_PK
   }

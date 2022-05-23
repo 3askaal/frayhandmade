@@ -80,15 +80,13 @@ export default {
       const stripe = await stripePromise
 
       const { id: sessionId } = await this.$api.post('orders', {
-        productId: this.products[0].product.id,
+        productIds: this.products.map(({product}) => product.id),
         customerInfo: this.customerInfo
       })
 
       const result = await stripe.redirectToCheckout({
         sessionId
       })
-
-      console.log(result)
     },
   },
   computed: {

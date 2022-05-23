@@ -11,11 +11,6 @@ import videojs from 'video.js'
 
 export default {
   props: ['videos'],
-  data() {
-    return {
-      baseUrl: process.env.baseUrl
-    }
-  },
   mounted() {
     this.$nextTick(() => {
       videojs('video', {}, function onPlayerReady() {
