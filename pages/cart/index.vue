@@ -36,7 +36,7 @@
           <p><strong>{{ subTotal }}</strong></p>
         </div>
 
-        <Button is="router-link" to="checkout" block class="cart__submit">Checkout</Button>
+        <Button to="checkout" block class="cart__submit">Go to checkout</Button>
       </b-col>
     </b-row>
   </div>

@@ -23,7 +23,7 @@ export default {
       try {
         const { data } = await this.$axios.post(path, payload);
 
-        return formatResponse(data).data;
+        return formatResponse(data);
       } catch (err) {
         throw err
       }

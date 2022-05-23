@@ -1,13 +1,13 @@
 <template>
   <component
-    :is="type"
-    class="button"
+    :is="to ? 'router-link' : 'button'"
     :to="to"
     :class="{
+      'button': true,
       'button--block': block,
       [`button--${size}`]: size,
     }"
-    @click="$emit('click')"
+    @click="!to && $emit('click')"
   >
     <slot />
   </component>
@@ -16,13 +16,6 @@
 <script>
 export default {
   props: {
-    type: {
-      type: String,
-      default: 'button'
-    },
-    to: {
-      type: String
-    },
     block: {
       type: Boolean,
       default: false
@@ -30,6 +23,9 @@ export default {
     size: {
       type: String,
       default: 'm'
+    },
+    to: {
+      type: String
     },
   }
 }
@@ -43,6 +39,7 @@ export default {
   background-color: transparent;
   color: $primary;
   border-radius: 1px;
+  text-decoration: none;
 
   &:hover {
     background-color: $primary;
@@ -50,6 +47,8 @@ export default {
   }
 
   &--block {
+    display: block;
+    text-align: center;
     width: 100%;
   }
 
