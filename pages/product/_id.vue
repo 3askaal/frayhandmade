@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      add: 'checkout/add'
+      add: 'cart/add'
     })
   }
 }

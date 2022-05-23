@@ -4,31 +4,31 @@
       <b-row>
 
         <b-col cols="6">
-          <b-input v-model="checkout.name" />
+          <b-input v-model="customerInfo.name" />
         </b-col>
         <b-col cols="6">
-          <b-input v-model="checkout.lastName" />
-        </b-col>
-
-        <b-col cols="6">
-          <b-input v-model="checkout.streetAddress" />
-        </b-col>
-        <b-col cols="6">
-          <b-input v-model="checkout.houseNumber" />
+          <b-input v-model="customerInfo.lastName" />
         </b-col>
 
         <b-col cols="6">
-          <b-input v-model="checkout.postalCode" />
+          <b-input v-model="customerInfo.streetAddress" />
         </b-col>
         <b-col cols="6">
-          <b-input v-model="checkout.country" />
+          <b-input v-model="customerInfo.houseNumber" />
         </b-col>
 
         <b-col cols="6">
-          <b-input v-model="checkout.email" />
+          <b-input v-model="customerInfo.postalCode" />
         </b-col>
         <b-col cols="6">
-          <b-input v-model="checkout.phoneNumber" />
+          <b-input v-model="customerInfo.country" />
+        </b-col>
+
+        <b-col cols="6">
+          <b-input v-model="customerInfo.email" />
+        </b-col>
+        <b-col cols="6">
+          <b-input v-model="customerInfo.phoneNumber" />
         </b-col>
 
       </b-row>
@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      checkout: {
+      customerInfo: {
         name: '',
         lastName: '',
         streetAddress: '',
@@ -75,8 +75,8 @@ export default {
       const stripe = await stripePromise
 
       const data = await this.$api.post('order', {
-        products: [],
-        info: this.data.checkout
+        productId: this.products[0].id,
+        info: this.customerInfo
       })
 
       const sessionId = data.id
@@ -93,7 +93,7 @@ export default {
       }, 0)
     },
     products () {
-      return this.$store.state.checkout.products
+      return this.$store.state.cart.products
     }
   }
 }
