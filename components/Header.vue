@@ -9,7 +9,7 @@
       <router-link to="/contact" class="header__nav__item">Contact</router-link>
 
       <span class="header__nav__item header__extra" :class="{'header__nav__item--active': productLength}">
-        <router-link to="/checkout" class="header__nav__item">
+        <router-link to="/cart" class="header__nav__item">
           <b-icon-cart />
           <span class="header__nav__item__indicator" v-if="productLength">
             {{ productLength }}

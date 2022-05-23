@@ -1,32 +1,37 @@
 <template>
   <div class="checkout mt-5">
-    <div class="checkout__products">
-      <template v-if="products.length">
-        <b-row class="checkout__products__product" v-for="product in products" :key="product.product.title">
-          <b-col cols="3">
-            <img :src="product.product.image.data.url" alt="" class="checkout__products__product__image" />
-          </b-col>
-          <b-col cols="9">
-            <div class="checkout__products__product__title">{{ product.product.title }}</div>
-            <p class="checkout__products__product__desc">
-              <small>{{ product.product.description || 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate vitae eum quibusdam in voluptatem? Expedita blanditiis culpa sunt at, labore tempora placeat. Quos, libero nulla quae reiciendis tempora velit earum.' }}</small>
-            </p>
-            <Button
-              size="s"
-              class="checkout__products__product__remove"
-              variant="outline-danger"
-              @click="() => remove(product.product.id)"
-            >
-              Remove from cart
-            </Button>
-          </b-col>
-        </b-row>
-      </template>
-      <template v-else>
-        <div class="checkout__products__message">
-          <p>No items in cart, go to our <router-link to="/shop">shop</router-link> page to see what's available for sale.</p>
-        </div>
-      </template>
+    <div class="checkout__form">
+      <b-row>
+
+        <b-col cols="6">
+          <b-input v-model="checkout.name" />
+        </b-col>
+        <b-col cols="6">
+          <b-input v-model="checkout.lastName" />
+        </b-col>
+
+        <b-col cols="6">
+          <b-input v-model="checkout.streetAddress" />
+        </b-col>
+        <b-col cols="6">
+          <b-input v-model="checkout.houseNumber" />
+        </b-col>
+
+        <b-col cols="6">
+          <b-input v-model="checkout.postalCode" />
+        </b-col>
+        <b-col cols="6">
+          <b-input v-model="checkout.country" />
+        </b-col>
+
+        <b-col cols="6">
+          <b-input v-model="checkout.email" />
+        </b-col>
+        <b-col cols="6">
+          <b-input v-model="checkout.phoneNumber" />
+        </b-col>
+
+      </b-row>
     </div>
 
     <b-row class="justify-content-end" v-if="products.length">
@@ -39,43 +44,40 @@
         <Button block variant="primary" class="checkout__submit" @click="submit">Checkout</Button>
       </b-col>
     </b-row>
-
-    <stripe-checkout
-      ref="checkoutRef"
-      mode="payment"
-      :pk="publishableKey"
-      :line-items="checkoutProducts"
-      :success-url="successURL"
-      :cancel-url="cancelURL"
-      @loading="v => loading = v"
-    />
   </div>
 </template>
 
 <script>
 import { StripeCheckout } from '@vue-stripe/vue-stripe';
-import { mapMutations } from 'vuex'
 
 export default {
   components: {
     StripeCheckout
   },
   data() {
-    this.publishableKey = process.env.stripePublishableKey;
+    // this.publishableKey = process.env.stripePublishableKey;
 
     return {
-      loading: false,
-      successURL: window.location.href + '/status?status=success',
-      cancelURL: window.location.href + '/status?status=error',
+      // loading: false,
+      // successURL: window.location.href + '/status?status=success',
+      // cancelURL: window.location.href + '/status?status=error',
+      checkout: {
+        name: '',
+        lastName: '',
+        streetAddress: '',
+        houseNumber: '',
+        postalCode: '',
+        country: '',
+        email: '',
+        phoneNumber: ''
+      }
     };
   },
   methods: {
-    submit () {
-      this.$refs.checkoutRef.redirectToCheckout();
+    async submit () {
+      // this.$refs.checkoutRef.redirectToCheckout();
+      const data = await this.$api.post('order', this.data.checkout)
     },
-    ...mapMutations({
-      remove: 'checkout/remove'
-    })
   },
   computed: {
     subTotal() {
@@ -84,13 +86,7 @@ export default {
       }, 0)
     },
     products () {
-      console.log(this.$store.state.checkout.products)
       return this.$store.state.checkout.products
-    },
-    checkoutProducts () {
-      return this.products.map(
-        ({ stripePriceId, amount }) => ({ price: stripePriceId || 'asdasdasd', quantity: amount })
-      )
     }
   }
 }
@@ -127,7 +123,6 @@ export default {
   object-fit: cover;
   object-position: center;
 }
-
 
 .checkout__products__product__title {
   margin-bottom: 1rem;
