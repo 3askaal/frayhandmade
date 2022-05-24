@@ -77,14 +77,14 @@ export default {
   },
   methods: {
     async submit () {
-      const stripe = await stripePromise
+      const stripe = await stripePromise;
 
-      const { id: sessionId } = await this.$api.post('orders', {
+      const { sessionId } = await this.$api.post('orders', {
         productIds: this.products.map(({product}) => product.id),
         customerInfo: this.customerInfo
       })
 
-      const result = await stripe.redirectToCheckout({
+      await stripe.redirectToCheckout({
         sessionId
       })
     },
