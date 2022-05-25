@@ -6,6 +6,10 @@ body,
   min-height: 100vh;
 }
 
+.app {
+  display: flex;
+}
+
 body {
   font-size: 14px;
   color: $black;
@@ -34,6 +38,11 @@ h2,
 h3 {
   font-family: 'onyxregular', Arial, Helvetica, sans-serif !important;
   letter-spacing: .075rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
 }
 
 // a {

@@ -7,15 +7,12 @@
     <div class="header__nav">
       <router-link to="/shop" class="header__nav__item">Shop</router-link>
       <router-link to="/contact" class="header__nav__item">Contact</router-link>
-
-      <span class="header__nav__item header__extra" :class="{'header__nav__item--active': productLength}">
-        <router-link to="/cart" class="header__nav__item">
-          <b-icon-cart />
-          <span class="header__nav__item__indicator" v-if="productLength">
-            {{ productLength }}
-          </span>
-        </router-link>
-      </span>
+      <router-link to="/cart" class="header__nav__item" :class="{'header__nav__item--active': productLength}">
+        <b-icon-cart />
+        <span class="header__nav__item__indicator" v-if="productLength">
+          {{ productLength }}
+        </span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -81,6 +78,10 @@ export default {
   cursor: pointer;
   text-decoration: unset;
 
+  svg {
+    pointer-events: none;
+  }
+
   &:hover {
     color: $primary;
 
@@ -114,7 +115,6 @@ export default {
   border-radius: 100%;
   font-size: .75rem;
   color: $primary;
-  pointer-events: none;
 
   .header__nav__item--active & {
     color: $primary;

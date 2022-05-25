@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
+  <div class="status">
     <template v-if="status === 'pending'">
-      <p>Your order is being processed!</p>
+      <h1 class="status__title">Your order is being processed!</h1>
     </template>
     <template v-if="status === 'success'">
-      <p>Your order was successful.</p>
+      <h1 class="status__title">Payment successful.</h1>
     </template>
     <template v-if="status === 'error'">
-      <p>Your order was not successful.</p>
+      <h1 class="status__title">Your order was not successful.</h1>
     </template>
   </div>
 </template>
@@ -38,7 +38,11 @@ export default {
 </script>
 
 <style lang="scss">
-.products {
+.status {
   display: flex;
+  justify-content: center;
+  border: 1px solid red;
+  flex-grow: 1;
+  height: 100%;
 }
 </style>
