@@ -70,7 +70,7 @@ export default {
         houseNumber: '',
         postalCode: '',
         country: '',
-        email: '',
+        email: '3askaal@gmail.com',
         phoneNumber: ''
       }
     };

@@ -17,15 +17,21 @@ export default {
   async mounted() {
     const sessionId = this.$route.params.id;
 
-    const order = await this.$api.post('orders/confirm', {
-      sessionId
-    })
+    try {
+      const order = await this.$api.post('orders/confirm', {
+        sessionId
+      })
 
-    console.log(order)
+      this.status = 'success'
+      this.order = order
+    } catch (err) {
+      this.status = 'error'
+    }
   },
   data() {
     return {
-      status: 'pending'
+      status: 'pending',
+      order: {}
     }
   }
 }
