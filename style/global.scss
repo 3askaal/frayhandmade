@@ -33,6 +33,12 @@ a {
   }
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 h1,
 h2,
 h3 {
@@ -43,6 +49,16 @@ h3 {
 .container {
   display: flex;
   flex-direction: column;
+}
+
+.spacer {
+  > * + * {
+    margin-top: $spacer;
+
+    > * + * {
+      margin-top: $spacer * .5;
+    }
+  }
 }
 
 // a {

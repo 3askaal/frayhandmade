@@ -1,5 +1,9 @@
+
+const setSessionStorage = (data) => sessionStorage.setItem('cart', JSON.stringify(data));
+const getSessionStorage = () => JSON.parse(sessionStorage.getItem('cart'));
+
 export const state = () => ({
-  products: []
+  products: getSessionStorage() || []
 })
 
 export const mutations = {
@@ -8,6 +12,8 @@ export const mutations = {
       product,
       amount: 1
     })
+
+    setSessionStorage(state.products)
   },
   increase(state, productId) {
     state.products = state.products.map((item) => {
@@ -20,6 +26,8 @@ export const mutations = {
 
       return item
     })
+
+    setSessionStorage(state.products)
   },
   decrease(state, productId) {
     state.products = state.products.map((item) => {
@@ -32,9 +40,13 @@ export const mutations = {
 
       return item
     })
+
+    setSessionStorage(state.products)
   },
   remove(state, productId) {
     const item = state.products.find(({ product }) => product.id === productId)
     state.products.splice(state.products.indexOf(item), 1)
+
+    setSessionStorage(state.products)
   }
 }

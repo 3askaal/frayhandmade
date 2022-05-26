@@ -50,7 +50,6 @@ export default {
   }
 
   &:hover {
-    /* box-shadow: 0 0 0 1px $black; */
     background-color: rgba(black, .1);
 
     .products__item__content {

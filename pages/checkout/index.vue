@@ -49,7 +49,7 @@
           <p><strong>{{ subTotal }}</strong></p>
         </div>
 
-        <Button block variant="primary" class="checkout__submit" @click="submit">Checkout</Button>
+        <Button block :disabled="!isValid" variant="primary" class="checkout__submit" @click="submit">Checkout</Button>
       </b-col>
     </b-row>
   </div>
@@ -57,6 +57,7 @@
 
 <script>
 import { loadStripe } from '@stripe/stripe-js'
+import * as validator from 'validator'
 
 const stripePromise = loadStripe(process.env.stripePublishableKey)
 
@@ -72,7 +73,8 @@ export default {
         country: '',
         email: '',
         phoneNumber: ''
-      }
+      },
+      errors: {}
     };
   },
   methods: {
@@ -97,6 +99,15 @@ export default {
     },
     products () {
       return this.$store.state.cart.products
+    },
+    isValid() {
+      return Object.entries(this.customerInfo).every(([key, value]) => {
+        if (key === 'email') {
+          return validator.isEmail(value)
+        }
+
+        return !!value && value.length > 3
+      })
     }
   }
 }

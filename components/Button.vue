@@ -5,6 +5,7 @@
     :class="{
       'button': true,
       'button--block': block,
+      'button--disabled': disabled,
       [`button--${size}`]: size,
     }"
     @click="!to && $emit('click')"
@@ -17,6 +18,10 @@
 export default {
   props: {
     block: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     },
@@ -50,6 +55,11 @@ export default {
     display: block;
     text-align: center;
     width: 100%;
+  }
+
+  &--disabled {
+    opacity: .6;
+    pointer-events: none;
   }
 
   &--s {
