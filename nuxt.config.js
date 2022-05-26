@@ -71,6 +71,8 @@ export default {
 
 
   env: {
+    nodeEnv: process.env.NODE_ENV,
+    apiBaseUrl: process.env.API_BASE_URL,
     apiKey: process.env.API_KEY,
     stripePublishableKey: process.env.STRIPE_PK
   }

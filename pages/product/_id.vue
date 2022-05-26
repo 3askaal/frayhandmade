@@ -2,7 +2,7 @@
   <div class="product" v-if="product">
     <div class="product__carousel">
       <b-carousel>
-        <b-carousel-slide v-for="image in [product.image.data]" :img-src="image.url" :key="image.id" />
+        <b-carousel-slide v-for="image in [product.image.data]" :img-src="baseUrl + image.url" :key="image.id" />
       </b-carousel>
     </div>
     <div class="product__details">

@@ -1,34 +1,37 @@
 <template>
-  <div>
+  <div class="page">
     <Hero v-if="videos.length" :videos="videos" />
     <div ref="body">
       <Section v-for="(block, index) in blocks" :key="index" :class="block.type">
-        <div v-if="block.content.includes('gallery--home')" class="container--gallery" v-html="block.content" />
-        <div v-else v-html="block.content" class="container--text"></div>
+        <div v-if="block.gallery" class="gallery">
+          <img v-for="(image, index) in block.images" :src="baseUrl + image.url" :style="image.style" :key="`image-${index}`" />
+        </div>
+        <div v-else v-html="block" class="container--text" />
       </Section>
-      <div class="gallery">
-        <img v-for="(image, index) in images" :src="image.url" :style="image.style" :key="`image-${index}`" />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { random } from 'lodash'
+import { random, sampleSize } from 'lodash'
 
 export default {
   layout: 'home',
   async mounted() {
     const data = await this.$api.get('home-page')
 
-    console.log(data)
-
     this.videos = data.hero.data.map(({ url }) => url)
 
-    if (data.gallery.data) {
-      const imageUrls = data.gallery.data.map(({ formats }) => formats.small.url)
+    this.blocks = data.content.split('___')
 
-      this.images = this.formatImages(imageUrls).filter((image) => image !== null)
+    if (data.gallery.data) {
+      const imageUrls = sampleSize(data.gallery.data, 20).map(({ formats }) => formats.small.url)
+
+      const galleryIndexItem = this.blocks.findIndex((block) => block.includes('[gallery]'))
+
+      const images = this.formatImages(imageUrls).filter((image) => image !== null)
+
+      this.blocks[galleryIndexItem] = { gallery: true, images }
     }
   },
   data() {
@@ -132,10 +135,17 @@ export default {
 </script>
 
 <style lang="scss">
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .gallery {
   position: relative;
   width: 100%;
   min-height: 800px;
+  margin-bottom: 300px;
 }
 
 .body__video {
@@ -150,7 +160,5 @@ export default {
   height: 100%;
 }
 
-.container--gallery {
-  /* padding: 0 ; */
-}
+.container--gallery {}
 </style>

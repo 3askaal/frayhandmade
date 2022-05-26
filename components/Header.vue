@@ -27,7 +27,7 @@ export default {
   computed: {
     productLength () {
       return this.$store.state.cart.products.length
-    },
+    }
   }
 }
 </script>

@@ -4,12 +4,11 @@
       <b-col cols="4" class="products__item" v-for="product in products" :key="product.id">
         <router-link :to="`/product/${product.id}`">
           <div class="products__item__image" v-if="product.image.data.url">
-            <img :src="product.image.data.url" alt="">
+            <img :src="baseUrl + product.image.data.url" alt="">
           </div>
           <div class="products__item__content">
-            <p v-html="product.title"></p>
-            <!-- <p v-html="product.description"></p> -->
-            <p v-html="product.price">€{{ product.price }}}</p>
+            <p v-html="product.title" />
+            <p>€ {{ product.price }}</p>
           </div>
         </router-link>
       </b-col>
@@ -28,8 +27,7 @@ export default {
     return {
       products: []
     }
-  },
-  methods: {}
+  }
 }
 </script>
 

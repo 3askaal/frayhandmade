@@ -7,6 +7,9 @@ export default {
         get: this.apiGet,
         post: this.apiPost,
       }
+    },
+    baseUrl() {
+      return process.env.nodeEnv === 'development' ? process.env.apiBaseUrl : ''
     }
   },
   methods: {
