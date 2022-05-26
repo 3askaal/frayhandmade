@@ -7,6 +7,7 @@
       'button--block': block,
       'button--disabled': disabled,
       [`button--${size}`]: size,
+      [`button--${state}`]: state,
     }"
     @click="!to && $emit('click')"
   >
@@ -29,6 +30,9 @@ export default {
       type: String,
       default: 'm'
     },
+    state: {
+      type: String
+    },
     to: {
       type: String
     },
@@ -45,6 +49,7 @@ export default {
   color: $primary;
   border-radius: 1px;
   text-decoration: none;
+  user-select: none;
 
   &:hover {
     background-color: $primary;
@@ -60,6 +65,15 @@ export default {
   &--disabled {
     opacity: .6;
     pointer-events: none;
+  }
+
+  &--success {
+    border-color: $success;
+    color: $success;
+
+    &:hover {
+      background-color: $success;
+    }
   }
 
   &--s {

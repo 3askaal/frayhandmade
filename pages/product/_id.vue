@@ -9,9 +9,10 @@
       <h1 class="product__title">{{ product.title }}</h1>
       <p class="product__price">&euro;{{ product.price }}</p>
       <p class="product__description">{{ product.description || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa unde quod facere natus quo incidunt nesciunt porro, sed, est deleniti culpa eligendi ducimus rerum distinctio officia, error magni officiis harum?' }}</p>
-      <Button @click="() => add(product)">
-        Add to cart
-        <b-icon-plus />
+      <Button @click="() => add(product)" :state="productInCart && 'success'" :disabled="productInCart">
+        {{ productInCart ? 'Added to cart' : 'Add to cart' }}
+        <b-icon-check v-if="productInCart" />
+        <b-icon-plus v-else />
       </Button>
     </div>
   </div>
@@ -19,7 +20,7 @@
 
 <script>
 import to from 'await-to-js'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   async mounted() {
@@ -36,7 +37,13 @@ export default {
   methods: {
     ...mapMutations({
       add: 'cart/add'
-    })
+    }),
+    ...mapState(['cart'])
+  },
+  computed: {
+    productInCart() {
+      return !!this.$store.state.cart.products.find(({ product }) => product.id === this.product?.id)
+    }
   }
 }
 </script>
