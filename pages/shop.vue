@@ -1,6 +1,6 @@
 <template>
   <div class="products">
-    <b-row>
+    <b-row class="m-0">
       <b-col cols="4" class="products__item" v-for="product in products" :key="product.id">
         <router-link :to="`/product/${product.id}`">
           <div class="products__item__image" v-if="product.image.data.url">

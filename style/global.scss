@@ -26,22 +26,16 @@ body {
   color: $black;
 }
 
-.body {
-  > * {
-    margin-bottom: 4rem !important;
-  }
-}
-
-p {
-  margin: 0;
-}
-
 a {
   color: $primary;
 
   &:hover {
     color: darken($primary, 10%);
   }
+}
+
+p {
+  margin: 0;
 }
 
 ul {
@@ -60,6 +54,14 @@ h3 {
 .container {
   display: flex;
   flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .spacer {

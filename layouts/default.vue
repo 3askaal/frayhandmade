@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <Header />
-    <div class="container">
+    <div class="wrapper">
       <Nuxt />
     </div>
   </div>
@@ -9,12 +9,7 @@
 
 <style lang="scss" scoped>
 .app {
-  padding-top: 180px;
-  padding-bottom: 180px;
-
-  @media only screen and (min-width: 768px) {
-    padding-top: 200px;
-    padding-bottom: 200px;
-  }
+  padding-top: 200px;
+  padding-bottom: 100px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <Hero v-if="videos.length" :videos="videos" />
-    <div ref="body">
+    <div class="wrapper" ref="body">
       <Section v-for="(block, index) in blocks" :key="index" :class="block.type">
         <div v-if="block.gallery" class="gallery">
           <img v-for="(image, index) in block.images" :src="baseUrl + image.url" :style="image.style" :key="`image-${index}`" />
@@ -139,13 +139,14 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow: hidden;
 }
 
 .gallery {
   position: relative;
   width: 100%;
   min-height: 800px;
-  margin-bottom: 300px;
+  margin-bottom: 200px;
 }
 
 .body__video {
@@ -159,6 +160,4 @@ export default {
   display: block;
   height: 100%;
 }
-
-.container--gallery {}
 </style>

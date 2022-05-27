@@ -1,32 +1,38 @@
 <template>
   <div class="cart mt-5">
     <div class="cart__products">
-      <template v-if="products.length">
-        <b-row class="cart__products__product" v-for="product in products" :key="product.product.title">
-          <b-col cols="3">
-            <img :src="product.product.image.data.url" alt="" class="cart__products__product__image" />
-          </b-col>
-          <b-col cols="9">
-            <div class="cart__products__product__title">{{ product.product.title }}</div>
-            <p class="cart__products__product__desc">
-              <small>{{ product.product.description || 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate vitae eum quibusdam in voluptatem? Expedita blanditiis culpa sunt at, labore tempora placeat. Quos, libero nulla quae reiciendis tempora velit earum.' }}</small>
-            </p>
-            <Button
-              size="s"
-              class="cart__products__product__remove"
-              variant="outline-danger"
-              @click="() => remove(product.product.id)"
-            >
-              Remove from cart
-            </Button>
-          </b-col>
-        </b-row>
-      </template>
-      <template v-else>
-        <div class="cart__products__message">
-          <p>No items in cart, go to our <router-link to="/shop">shop</router-link> page to see what's available for sale.</p>
-        </div>
-      </template>
+      <div class="container">
+        <template v-if="products.length">
+          <b-row class="cart__products__product" v-for="product in products" :key="product.product.title">
+            <b-col cols="3">
+              <img :src="baseUrl + product.product.image.data.url" alt="" class="cart__products__product__image" />
+            </b-col>
+            <b-col cols="9">
+              <div class="cart__products__product__title">{{ product.product.title }}</div>
+              <p class="cart__products__product__desc">
+                <small>{{ product.product.description || 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate vitae eum quibusdam in voluptatem? Expedita blanditiis culpa sunt at, labore tempora placeat. Quos, libero nulla quae reiciendis tempora velit earum.' }}</small>
+              </p>
+              <Button
+                size="s"
+                class="cart__products__product__remove"
+                variant="outline-danger"
+                @click="() => remove(product.product.id)"
+              >
+                Remove from cart
+              </Button>
+            </b-col>
+          </b-row>
+        </template>
+        <template v-else>
+          <b-row>
+            <b-col>
+              <div class="cart__products__message">
+                <p>No items in cart, go to our <router-link to="/shop">shop</router-link> page to see what's available for sale.</p>
+              </div>
+            </b-col>
+          </b-row>
+        </template>
+      </div>
     </div>
 
     <b-row class="justify-content-end" v-if="products.length">
