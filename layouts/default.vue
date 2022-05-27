@@ -8,30 +8,13 @@
 </template>
 
 <style lang="scss" scoped>
-html {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-}
-
-html,
-body,
 .app {
-  /* max-width: 100%; */
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
-}
+  padding-top: 180px;
+  padding-bottom: 180px;
 
-body {
-  background-color: $black;
-  color: $white;
-}
-
-.app {
-  padding-top: 200px;
-  padding-bottom: 200px;
+  @media only screen and (min-width: 768px) {
+    padding-top: 200px;
+    padding-bottom: 200px;
+  }
 }
 </style>
