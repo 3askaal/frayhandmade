@@ -152,12 +152,4 @@ export default {
 .body__video {
   display: none;
 }
-
-.container--text {
-  max-width: 720px;
-  padding: 0 2rem;
-  margin: 0 auto;
-  display: block;
-  height: 100%;
-}
 </style>

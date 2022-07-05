@@ -74,8 +74,10 @@ h3 {
   }
 }
 
-// a {
-//   &:hover {
-//     color: $primary !important;
-//   }
-// }
+.container--text {
+  max-width: 720px;
+  padding: 0 2rem;
+  margin: 0 auto;
+  display: block;
+  height: 100%;
+}

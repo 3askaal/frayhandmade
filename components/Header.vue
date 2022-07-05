@@ -6,7 +6,7 @@
     </router-link>
     <div class="header__nav">
       <router-link to="/shop" class="header__nav__item">Shop</router-link>
-      <router-link to="/contact" class="header__nav__item">Contact</router-link>
+      <router-link to="/about" class="header__nav__item">About</router-link>
       <router-link to="/cart" class="header__nav__item" :class="{'header__nav__item--active': productLength}">
         <b-icon-cart />
         <span class="header__nav__item__indicator" v-if="productLength">
